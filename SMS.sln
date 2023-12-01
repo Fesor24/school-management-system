@@ -5,21 +5,23 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DA79863E-F433-4E2D-9A97-B3F3A543A744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.API", "src\SMS.API\SMS.API.csproj", "{A8FBB4D7-4D33-4699-857B-ED179C47F735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS.API", "src\SMS.API\SMS.API.csproj", "{A8FBB4D7-4D33-4699-857B-ED179C47F735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.Infrastructure", "src\SMS.Infrastructure\SMS.Infrastructure.csproj", "{98EDCD94-DCAB-4E90-B369-3DF734D09DCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS.Infrastructure", "src\SMS.Infrastructure\SMS.Infrastructure.csproj", "{98EDCD94-DCAB-4E90-B369-3DF734D09DCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.Domain", "src\SMS.Domain\SMS.Domain.csproj", "{3BB1DDF7-B62E-410A-995E-3332201A21AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS.Domain", "src\SMS.Domain\SMS.Domain.csproj", "{3BB1DDF7-B62E-410A-995E-3332201A21AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.Application", "src\SMS.Application\SMS.Application.csproj", "{EF96FCFE-A4C8-4DF5-BC57-9607ADA3D0D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS.Application", "src\SMS.Application\SMS.Application.csproj", "{EF96FCFE-A4C8-4DF5-BC57-9607ADA3D0D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{91579375-49D0-41DA-8B19-2EF05086BC5D}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A8FBB4D7-4D33-4699-857B-ED179C47F735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,6 +40,9 @@ Global
 		{EF96FCFE-A4C8-4DF5-BC57-9607ADA3D0D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF96FCFE-A4C8-4DF5-BC57-9607ADA3D0D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF96FCFE-A4C8-4DF5-BC57-9607ADA3D0D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A8FBB4D7-4D33-4699-857B-ED179C47F735} = {DA79863E-F433-4E2D-9A97-B3F3A543A744}
