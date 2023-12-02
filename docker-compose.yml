@@ -1,0 +1,15 @@
+services:
+    postgres:
+        image: postgres
+        container_name: student_mgt_db
+        environment:
+            POSTGRES_PASSWORD: studentpw
+        volumes:
+            - student-data:/var/lib/postgresql/data
+    adminer:
+        image: adminer
+        container_name: student_mgt_adminer
+        ports:
+            - 8080:8080 
+volumes:
+    student-data:
