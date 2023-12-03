@@ -3,17 +3,17 @@
 namespace SMS.Domain.Common;
 public class BaseEntity
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
-    private readonly List<BaseEvent> _domainEvents = new();
+    private readonly List<IDomainEvent> _domainEvents = new();
 
     [NotMapped]
-    public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public void AddDomainEvents(BaseEvent baseEvent) =>
+    public void AddDomainEvents(IDomainEvent baseEvent) =>
         _domainEvents.Add(baseEvent);
 
-    public void DeleteDomainEvents(BaseEvent baseEvent) => 
+    public void DeleteDomainEvents(IDomainEvent baseEvent) => 
         _domainEvents.Remove(baseEvent);
 
     public void ClearDomainEvents() => 
