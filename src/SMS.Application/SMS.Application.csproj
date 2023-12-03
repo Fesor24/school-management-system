@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SMS.Infrastructure\SMS.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Courses\Events\" />
+    <Folder Include="Courses\Queries\" />
+  </ItemGroup>
+
 </Project>
