@@ -2,7 +2,7 @@
 using CourseEntity = SMS.Domain.Entities.Course;
 
 namespace SMS.Domain.Events.Course;
-public class CourseCreatedEvent : BaseEvent
+public class CourseCreatedEvent : IDomainEvent
 {
     public CourseCreatedEvent(CourseEntity course)
     {
