@@ -1,6 +1,11 @@
 ﻿namespace SMS.Domain.Primitives;
 public abstract class Entity : IEquatable<Entity>
 {
+    protected Entity()
+    {
+
+    }
+
     protected Entity(Guid id)
     {
         Id = id;
@@ -18,7 +23,7 @@ public abstract class Entity : IEquatable<Entity>
         return !(first == second);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is null) return false;
 
@@ -29,7 +34,7 @@ public abstract class Entity : IEquatable<Entity>
         return entity.Id == Id;
     }
 
-    public bool Equals(Entity other)
+    public bool Equals(Entity? other)
     {
         if (other is null) return false;
 
