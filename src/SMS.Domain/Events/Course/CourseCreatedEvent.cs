@@ -1,4 +1,4 @@
-﻿using SMS.Domain.Common;
+﻿using SMS.Domain.Primitives;
 using CourseEntity = SMS.Domain.Entities.Course;
 
 namespace SMS.Domain.Events.Course;
