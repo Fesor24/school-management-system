@@ -3,7 +3,9 @@
 namespace SMS.Domain.Common;
 public class BaseAuditableEntity : Entity
 {
-    public BaseAuditableEntity(Guid id) : base(id)
+    protected BaseAuditableEntity() { }
+
+    protected BaseAuditableEntity(Guid id) : base(id)
     {
         
     }
