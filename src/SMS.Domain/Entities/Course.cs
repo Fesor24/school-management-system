@@ -1,9 +1,9 @@
-﻿using SMS.Domain.Common;
+﻿using SMS.Domain.Primitives;
 
 namespace SMS.Domain.Entities;
-public sealed class Course : BaseAuditableEntity
+public sealed class Course : AggregateRoot
 {
-    public Course(Guid id): base(id)
+    public Course()
     {
         
     }
