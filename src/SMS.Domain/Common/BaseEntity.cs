@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using SMS.Domain.Primitives;
 
 namespace SMS.Domain.Common;
 public class BaseEntity
