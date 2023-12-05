@@ -23,8 +23,8 @@ public sealed class Course : AggregateRoot
     {
         Course course = new(id, courseName, courseCode, unit);
 
-        if (course.Unit > 4)
-            throw new Exception("Course unit can not be more than 4");
+        if (course.Unit > 6)
+            throw new Exception("Course unit can not be more than 6");
 
         return course;
     }
