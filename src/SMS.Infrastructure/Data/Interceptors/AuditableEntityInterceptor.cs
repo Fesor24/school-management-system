@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using SMS.Domain.Common;
+using SMS.Domain.Primitives;
 
 namespace SMS.Infrastructure.Data.Interceptors;
 internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
