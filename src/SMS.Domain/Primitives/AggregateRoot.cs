@@ -1,4 +1,4 @@
-﻿using SMS.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SMS.Domain.Primitives;
 public abstract class AggregateRoot : BaseAuditableEntity
@@ -12,6 +12,7 @@ public abstract class AggregateRoot : BaseAuditableEntity
         
     }
 
+    [NotMapped]
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     protected void AddDomainEvent(IDomainEvent domainEvent) => 
