@@ -1,4 +1,5 @@
 ﻿using SMS.Domain.Primitives;
+using SMS.Domain.Shared;
 
 namespace SMS.Domain.Entities;
 public sealed class Course : AggregateRoot
@@ -19,7 +20,7 @@ public sealed class Course : AggregateRoot
     public string Code { get; private set; }
     public int Unit { get; private set; }
 
-    public static Course Create(Guid id, string courseName, string courseCode, int unit)
+    public static Result<Course> Create(Guid id, string courseName, string courseCode, int unit)
     {
         Course course = new(id, courseName, courseCode, unit);
 
