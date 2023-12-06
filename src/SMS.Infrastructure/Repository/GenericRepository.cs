@@ -19,10 +19,10 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     public void Delete(TEntity entity) =>
         _context.Set<TEntity>().Remove(entity);
 
-    public async Task<List<TEntity>> GetAll() =>
+    public async Task<List<TEntity>> GetAll(CancellationToken cancellationToken = default) =>
         await _context.Set<TEntity>().ToListAsync();
 
-    public async Task<TEntity> GetAsync(Guid id) =>
+    public async Task<TEntity> GetAsync(Guid id, CancellationToken cancellationToken = default) =>
         await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
     public void Update(TEntity entity)
