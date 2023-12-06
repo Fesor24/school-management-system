@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using SMS.Domain.Abstractions;
 using SMS.Domain.Entities;
-using SMS.Domain.Shared;
 
 namespace SMS.Application.Courses.Commands.CreateCourse;
 internal record CreateCourseCommand(string Name, string Code, int Unit) : IRequest<Guid>;
@@ -15,7 +14,8 @@ internal sealed class CreateCourseCommandHandler : IRequestHandler<CreateCourseC
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Guid> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateCourseCommand request, 
+        CancellationToken cancellationToken)
     {
         var result = Course.Create(
             Guid.NewGuid(),
