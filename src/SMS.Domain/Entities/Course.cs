@@ -1,4 +1,5 @@
-﻿using SMS.Domain.Primitives;
+﻿using SMS.Domain.Errors;
+using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Domain.Entities;
@@ -25,7 +26,7 @@ public sealed class Course : AggregateRoot
         Course course = new(id, courseName, courseCode, unit);
 
         if (course.Unit > 6)
-            throw new Exception("Course unit can not be more than 6");
+            return Result.Failure<Course>(DomainErrors.Course.InvalidCourseUnit);
 
         return course;
     }
