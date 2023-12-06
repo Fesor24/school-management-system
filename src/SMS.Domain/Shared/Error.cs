@@ -13,9 +13,21 @@ public class Error : IEquatable<Error>
     public string Code { get; set; }
 
     public string Message { get; set; }
-    public bool Equals(Error other)
+
+    public static implicit operator string(Error error) => error.Code;
+    public bool Equals(Error? other)
     {
         return other != null && other == this;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj != null && obj.GetType() == GetType();
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Code, Message);
     }
 
     public static implicit operator Result(Error error) => Result.Failure(error);
