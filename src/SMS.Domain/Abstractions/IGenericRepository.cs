@@ -3,9 +3,9 @@
 namespace SMS.Domain.Abstractions;
 public interface IGenericRepository<TEntity> where TEntity: Entity, new()
 {
-    Task<List<TEntity>> GetAll();
+    Task<List<TEntity>> GetAll(CancellationToken cancellationToken = default);
 
-    Task<TEntity> GetAsync(Guid id);
+    Task<TEntity> GetAsync(Guid id, CancellationToken cancellationToken = default);
 
     Task AddAsync(TEntity entity);
 
