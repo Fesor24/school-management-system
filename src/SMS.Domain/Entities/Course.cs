@@ -1,4 +1,5 @@
-﻿using SMS.Domain.Errors;
+﻿using SMS.Domain.DomainEvents;
+using SMS.Domain.Errors;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
@@ -27,6 +28,8 @@ public sealed class Course : AggregateRoot
 
         if (course.Unit > 6)
             return Result.Failure<Course>(DomainErrors.Course.InvalidCourseUnit);
+
+        course.AddDomainEvent(new CourseCreatedEvent(course.Name, course.Code, course.Unit));
 
         return course;
     }
