@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SMS.Domain.Abstractions;
 using SMS.Infrastructure.Data;
 using SMS.Infrastructure.Data.Interceptors;
+using SMS.Infrastructure.Repository;
+using System.Reflection;
 
 namespace SMS.Infrastructure;
 public static class DependencyInjection
@@ -16,12 +19,15 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>((sp, opt) =>
         {
-            opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+            opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), 
+                migrations => migrations.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name))
             .AddInterceptors(
                 sp.GetRequiredService<AuditableEntityInterceptor>(),
                 sp.GetRequiredService<PublishDomainEventsInterceptor>()
                 );
         });
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
