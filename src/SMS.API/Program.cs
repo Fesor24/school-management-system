@@ -1,6 +1,7 @@
 using Serilog;
 using SMS.Application;
 using SMS.Infrastructure;
+using SMS.Presentation;
 using SMS.Presentation.Extensions;
 
 Log.Logger = new LoggerConfiguration()
@@ -10,7 +11,10 @@ Log.Logger = new LoggerConfiguration()
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructureServices(builder.Configuration)
-    .AddApplicationServices();
+    .AddApplicationServices()
+    .AddPresentationServices();
+
+builder.Services.AddSerilog();
 
 var app = builder.Build();
 
