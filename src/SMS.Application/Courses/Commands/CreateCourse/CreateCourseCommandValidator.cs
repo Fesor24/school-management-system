@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 
 namespace SMS.Application.Courses.Commands.CreateCourse;
-internal class CreateCourseCommandValidator : AbstractValidator<CreateCourseCommand>
+internal sealed class CreateCourseCommandValidator : AbstractValidator<CreateCourseCommand>
 {
     public CreateCourseCommandValidator()
     {
@@ -12,5 +12,9 @@ internal class CreateCourseCommandValidator : AbstractValidator<CreateCourseComm
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Course name can not be empty")
             .NotNull().WithMessage("Course name can not be null");
+
+        RuleFor(x => x.Unit)
+            .LessThanOrEqualTo(6).WithMessage("Unit can not be more than 6")
+            .GreaterThanOrEqualTo(1).WithMessage("Unit must be greater than 0");
     }
 }
