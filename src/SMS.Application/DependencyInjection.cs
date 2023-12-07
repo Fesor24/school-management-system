@@ -9,6 +9,11 @@ public static class DependencyInjection
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+        });
+
         return services;
     }
 }
