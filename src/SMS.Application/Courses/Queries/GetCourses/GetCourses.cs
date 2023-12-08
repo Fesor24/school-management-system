@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using SMS.Application.Courses.Response;
-using SMS.Domain.Abstractions;
+using SMS.Domain.Primitives;
 
 namespace SMS.Application.Courses.Queries.GetCourses;
 internal record GetCoursesRequest : IRequest<List<GetCourseResponse>>;
