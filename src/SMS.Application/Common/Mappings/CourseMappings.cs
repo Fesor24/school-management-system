@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SMS.Application.Courses.Response;
-using SMS.Domain.Entities;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 
 namespace SMS.Application.Common.Mappings;
 internal class CourseMappings : Profile
