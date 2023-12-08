@@ -1,5 +1,4 @@
-﻿using SMS.Domain.Abstractions;
-using SMS.Domain.Entities;
+﻿using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Infrastructure.Data;
 
 namespace SMS.Infrastructure.Repository;
