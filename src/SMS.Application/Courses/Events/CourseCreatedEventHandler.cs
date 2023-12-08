@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SMS.Domain.DomainEvents;
+using SMS.Domain.DomainEvents.Course;
 
 namespace SMS.Application.Courses.Events;
 internal class CourseCreatedEventHandler : INotificationHandler<CourseCreatedEvent>
