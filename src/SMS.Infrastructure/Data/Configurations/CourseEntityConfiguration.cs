@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SMS.Domain.Entities;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 
 namespace SMS.Infrastructure.Data.Configurations;
 public class CourseEntityConfiguration : IEntityTypeConfiguration<Course>
@@ -9,14 +9,12 @@ public class CourseEntityConfiguration : IEntityTypeConfiguration<Course>
     {
         builder.HasKey(x => x.Id);
 
-        builder.ToTable(nameof(Course), "sch");
+        builder.ToTable(nameof(Course), "sms");
 
-        builder.Property(x => x.Code)
-            .HasMaxLength(5)
-            .HasColumnName("Code");
-
-        builder.Property(x => x.Name)
-            .HasMaxLength(150)
-            .HasColumnName("Name");
+        builder.OwnsOne(x => x.CourseInfo, builder =>
+        {
+            builder.Property(x => x.Code).HasMaxLength(5).HasColumnName("Code");
+            builder.Property(x => x.Name).HasMaxLength(150).HasColumnName("Name");
+        });
     }
 }
