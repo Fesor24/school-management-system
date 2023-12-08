@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using SMS.Application.Courses.Response;
-using SMS.Domain.Abstractions;
 using SMS.Domain.Exceptions.Course;
+using SMS.Domain.Primitives;
 
 namespace SMS.Application.Courses.Queries.GetCourseById;
 internal record GetCourseByIdRequest(Guid Id) : IRequest<GetCourseResponse>;
