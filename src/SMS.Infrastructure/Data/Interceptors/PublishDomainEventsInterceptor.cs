@@ -33,7 +33,7 @@ internal sealed class PublishDomainEventsInterceptor : SaveChangesInterceptor
         if (context is null) return;
 
         var entities = context.ChangeTracker
-            .Entries<AggregateRoot>()
+            .Entries<Entity>()
             .Where(x => x.Entity.DomainEvents.Any())
             .Select(x => x.Entity);
 
