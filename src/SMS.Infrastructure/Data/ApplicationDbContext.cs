@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SMS.Domain.Entities;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 using System.Reflection;
 
 namespace SMS.Infrastructure.Data;
