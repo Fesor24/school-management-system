@@ -4,7 +4,7 @@ using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
-public sealed class Course : Entity
+public sealed class Course : BaseAuditableEntity
 {
     public Course()
     {
