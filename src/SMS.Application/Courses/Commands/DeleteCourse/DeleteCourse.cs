@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using SMS.Domain.Abstractions;
 using SMS.Domain.Exceptions.Course;
+using SMS.Domain.Primitives;
 
 namespace SMS.Application.Courses.Commands.DeleteCourse;
 internal record DeleteCourseCommand(Guid Id) : IRequest<Unit>;
