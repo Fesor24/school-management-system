@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SMS.Domain.Abstractions;
 using SMS.Domain.Primitives;
 using SMS.Infrastructure.Data;
 
