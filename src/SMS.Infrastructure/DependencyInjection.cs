@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SMS.Domain.Abstractions;
+using SMS.Domain.Primitives;
 using SMS.Infrastructure.Data;
 using SMS.Infrastructure.Data.Interceptors;
 using SMS.Infrastructure.Repository;
