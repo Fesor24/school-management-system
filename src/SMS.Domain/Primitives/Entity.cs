@@ -1,6 +1,10 @@
-﻿namespace SMS.Domain.Primitives;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SMS.Domain.Primitives;
 public abstract class Entity : IEquatable<Entity>
 {
+    private readonly List<IDomainEvent> _domainEvents = new();
+
     protected Entity()
     {
 
@@ -12,6 +16,18 @@ public abstract class Entity : IEquatable<Entity>
     }
 
     public Guid Id { get; private init; }
+
+    [NotMapped]
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    public void AddDomainEvent(IDomainEvent domainEvent) =>
+        _domainEvents.Add(domainEvent);
+
+    public void RemoveDomainEvent(IDomainEvent domainEvent) => 
+        _domainEvents.Remove(domainEvent);
+
+    public void ClearDomainEvents() =>
+        _domainEvents.Clear();
 
     public static bool operator ==(Entity? first, Entity? second)
     {
