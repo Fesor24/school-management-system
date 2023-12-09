@@ -10,10 +10,10 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(ApplicationDbContext context)
     {
         _context = context;
-        CourseRepository = new CourseRepository(context);
+        DepartmentRepository = new DepartmentRepository(context);
     }
 
-    public ICourseRepository CourseRepository { get; init; }
+    public IDepartmentRepository DepartmentRepository { get; init; }
 
     public async Task<int> Complete(CancellationToken cancelleationToken = default)
     {
