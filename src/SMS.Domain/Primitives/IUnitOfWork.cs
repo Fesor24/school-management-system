@@ -3,6 +3,6 @@
 namespace SMS.Domain.Primitives;
 public interface IUnitOfWork : IDisposable
 {
-    public ICourseRepository CourseRepository { get; init; }
+    public IDepartmentRepository DepartmentRepository { get; init; }
     Task<int> Complete(CancellationToken cancelleationToken = default);
 }
