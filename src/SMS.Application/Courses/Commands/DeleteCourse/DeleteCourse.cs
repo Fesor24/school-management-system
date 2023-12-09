@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using SMS.Domain.Exceptions.Course;
+using SMS.Domain.Exceptions.Department;
 using SMS.Domain.Primitives;
 
 namespace SMS.Application.Courses.Commands.DeleteCourse;
-internal record DeleteCourseCommand(Guid Id) : IRequest<Unit>;
+internal record DeleteCourseCommand(Guid CourseId, Guid DepartmentId) : IRequest<Unit>;
 
 internal sealed class DeleteCourseCommadHandler : IRequestHandler<DeleteCourseCommand, Unit>
 {
@@ -16,10 +17,15 @@ internal sealed class DeleteCourseCommadHandler : IRequestHandler<DeleteCourseCo
 
     public async Task<Unit> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
     {
-        var course = await _unitOfWork.CourseRepository.GetAsync(request.Id) ??
-            throw new CourseNotFoundException(request.Id);
+        var department = await _unitOfWork.DepartmentRepository.GetDepartmentInfo(request.DepartmentId) ??
+            throw new DepartmentNotFoundException(request.DepartmentId);
 
-        _unitOfWork.CourseRepository.Delete(course);
+        var result = department.RemoveCourse(request.CourseId);
+
+        if (result.IsFailure)
+            throw new CourseNotFoundException(request.CourseId);
+
+        _unitOfWork.DepartmentRepository.Update(department);
 
         await _unitOfWork.Complete();
 
