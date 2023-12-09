@@ -5,7 +5,7 @@ using SMS.Domain.Exceptions.Course;
 using SMS.Domain.Primitives;
 
 namespace SMS.Application.Courses.Queries.GetCourseById;
-internal record GetCourseByIdRequest(Guid Id) : IRequest<GetCourseResponse>;
+internal record GetCourseByIdRequest(Guid CourseId) : IRequest<GetCourseResponse>;
 
 internal sealed class GetCourseByIdRequestHandler : IRequestHandler<GetCourseByIdRequest, GetCourseResponse>
 {
@@ -21,8 +21,8 @@ internal sealed class GetCourseByIdRequestHandler : IRequestHandler<GetCourseByI
     public async Task<GetCourseResponse> Handle(GetCourseByIdRequest request, 
         CancellationToken cancellationToken)
     {
-        var course = await _unitOfWork.CourseRepository.GetAsync(request.Id, cancellationToken) ??
-            throw new CourseNotFoundException(request.Id);
+        var course = await _unitOfWork.DepartmentRepository.GetCourseAsync(request.CourseId, cancellationToken) ??
+            throw new CourseNotFoundException(request.CourseId);
 
         return _mapper.Map<GetCourseResponse>(course);
     }
