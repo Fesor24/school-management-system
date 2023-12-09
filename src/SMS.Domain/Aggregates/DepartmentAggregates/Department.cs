@@ -1,8 +1,10 @@
-﻿using SMS.Domain.Primitives;
+﻿using SMS.Domain.DomainEvents.Course;
+using SMS.Domain.Errors;
+using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
-internal class Department : AggregateRoot
+public class Department : AggregateRoot
 {
     private readonly List<Course> _courses = new();
 
@@ -39,5 +41,31 @@ internal class Department : AggregateRoot
         _courses.Add(result.Value);
 
         return result;
+    }
+
+    public Result RemoveCourse(Guid courseId)
+    {
+        Course? course = _courses.FirstOrDefault(x => x.Id == courseId);
+
+        if (course is null)
+            return Result.Failure(DomainErrors.Course.CourseNotFound);
+
+        _courses.Remove(course);
+
+        AddDomainEvent(new CourseDeletedEvent(courseId));
+
+        return Result.Success();
+    }
+
+    public Result<Course> UpdateCourse(Guid id, string courseName, string courseCode, int unit)
+    {
+        Course? course = _courses.FirstOrDefault(x => x.Id == id);
+
+        if (course is null)
+            return Result.Failure<Course>(DomainErrors.Course.CourseNotFound);
+
+        course.Update(courseName, courseCode, unit);
+
+        return course;
     }
 }
