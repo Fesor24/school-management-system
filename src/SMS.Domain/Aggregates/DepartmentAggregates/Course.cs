@@ -2,6 +2,7 @@
 using SMS.Domain.Errors;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
+using System.Runtime.CompilerServices;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
 public sealed class Course : BaseAuditableEntity
@@ -34,5 +35,16 @@ public sealed class Course : BaseAuditableEntity
             course.Unit));
 
         return course;
+    }
+
+    public Result<Course> Update(string courseName, string courseCode, int unit)
+    {
+        if (unit > 6)
+            return Result.Failure<Course>(DomainErrors.Course.InvalidCourseUnit);
+
+        Unit = unit;
+        CourseInfo = new(courseName, courseCode);
+
+        return this;
     }
 }
