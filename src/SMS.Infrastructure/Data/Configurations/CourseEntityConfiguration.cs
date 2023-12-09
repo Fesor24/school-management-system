@@ -16,5 +16,7 @@ public class CourseEntityConfiguration : IEntityTypeConfiguration<Course>
             builder.Property(x => x.Code).HasMaxLength(5).HasColumnName("Code");
             builder.Property(x => x.Name).HasMaxLength(150).HasColumnName("Name");
         });
+
+        builder.Ignore(x => x.DomainEvents);
     }
 }
