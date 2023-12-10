@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SMS.Application\SMS.Application.csproj" />
     <ProjectReference Include="..\SMS.Infrastructure\SMS.Infrastructure.csproj" />
-    <ProjectReference Include="..\SMS.Presentation\SMS.Presentation.csproj" />
   </ItemGroup>
 
 </Project>
