@@ -2,12 +2,11 @@
 using SMS.Domain.Errors;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
-using System.Runtime.CompilerServices;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
 public sealed class Course : BaseAuditableEntity
 {
-    public Course()
+    protected Course()
     {
 
     }
@@ -26,7 +25,7 @@ public sealed class Course : BaseAuditableEntity
     {
         Course course = new(id, courseName, courseCode, unit);
 
-        if (course.Unit > 6)
+        if (course.Unit < 1 ||  course.Unit > 6)
             return Result.Failure<Course>(DomainErrors.Course.InvalidCourseUnit);
 
         course.AddDomainEvent(new CourseCreatedEvent(
@@ -39,7 +38,7 @@ public sealed class Course : BaseAuditableEntity
 
     public Result<Course> Update(string courseName, string courseCode, int unit)
     {
-        if (unit > 6)
+        if (unit < 1 || unit > 6)
             return Result.Failure<Course>(DomainErrors.Course.InvalidCourseUnit);
 
         Unit = unit;
