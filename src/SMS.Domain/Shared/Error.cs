@@ -17,12 +17,24 @@ public class Error : IEquatable<Error>
     public static implicit operator string(Error error) => error.Code;
     public bool Equals(Error? other)
     {
-        return other != null && other == this;
+        if (other is null) return false;
+
+        if (!other.Code.Equals(Code) || !other.Message.Equals(Message)) return false;
+
+        return other.Code.Equals(Code) && other.Message.Equals(Message);
     }
 
     public override bool Equals(object? obj)
     {
-        return obj != null && obj.GetType() == GetType();
+        if (obj is null) return false;
+
+        if (obj.GetType() != GetType()) return false;
+
+        var other = (Error)obj;
+
+        if (!other.Code.Equals(Code) || !other.Message.Equals(Message)) return false;
+
+        return other.Code.Equals(Code) && other.Message.Equals(Message);
     }
 
     public override int GetHashCode()
