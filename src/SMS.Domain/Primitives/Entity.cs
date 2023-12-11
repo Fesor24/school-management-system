@@ -47,6 +47,8 @@ public abstract class Entity : IEquatable<Entity>
 
         if (obj is not Entity entity) return false;
 
+        if (entity.Id == default || Id == default) return false;
+
         return entity.Id == Id;
     }
 
@@ -61,6 +63,6 @@ public abstract class Entity : IEquatable<Entity>
 
     public override int GetHashCode()
     {
-        return Id.GetHashCode();
+        return (GetType().ToString() + Id).GetHashCode();
     }
 }
