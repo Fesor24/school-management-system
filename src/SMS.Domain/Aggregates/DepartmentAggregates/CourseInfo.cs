@@ -1,7 +1,7 @@
 ﻿using SMS.Domain.Primitives;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
-public class CourseInfo : ValueObject
+public sealed class CourseInfo : ValueObject
 {
     public CourseInfo(string name, string code)
     {
