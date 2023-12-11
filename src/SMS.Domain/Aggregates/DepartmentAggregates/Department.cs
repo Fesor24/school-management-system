@@ -26,7 +26,7 @@ public class Department : AggregateRoot
 
     public static Department Create(string name, string code)
     {
-        var department = new Department(Guid.NewGuid(),name, code);
+        var department = new Department(Guid.NewGuid(), name, code);
 
         return department;
     }
