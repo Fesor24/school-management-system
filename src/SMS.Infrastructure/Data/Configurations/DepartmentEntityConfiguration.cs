@@ -14,9 +14,9 @@ public class DepartmentEntityConfiguration : IEntityTypeConfiguration<Department
         builder.HasMany(x => x.Courses)
             .WithOne();
 
-        builder.Property<List<Course>>("_courses")
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("Courses");
+        //builder.Property<List<Course>>("_courses")
+        //    .UsePropertyAccessMode(PropertyAccessMode.Field)
+        //    .HasColumnName("Courses");
 
         builder.Ignore(x => x.DomainEvents);
     }
