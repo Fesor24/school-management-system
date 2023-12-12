@@ -1,17 +1,19 @@
 ﻿using SMS.API.Abstractions;
+using SMS.API.Common.EndpointRouteMapper;
 using SMS.API.Extensions;
 using SMS.Application.Courses.Commands.CreateCourse;
+using SMS.Application.Courses.Queries.GetCourseById;
 using SMS.Application.Courses.Response;
-using SMS.Domain.Shared;
 
 namespace SMS.API.EndpointDefinitions;
-internal class CourseEndpoint : IEndpointDefinition
+public class CourseEndpoint : IEndpointDefinition
 {
     public void RegisterEndpoints(WebApplication app)
     {
-        const string ENDPOINT = "course";
+        const string ENDPOINT = "Course";
 
-        app.MediatorPost<CreateCourseCommand, Result<CreateCourseResponse, Error>, CreateCourseResponse, Error>(
-            ENDPOINT, "/");
+        app.MediatorPost<CreateCourseCommand, CreateCourseResponse>(ENDPOINT, "/");
+
+        app.MediatorGet<GetCourseByIdRequest, GetCourseResponse>(ENDPOINT, "/", EndpointRoutes.Names.GETCOURSE);
     }
 }
