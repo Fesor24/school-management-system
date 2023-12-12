@@ -35,10 +35,13 @@ public class CourseTests
     {
         Guid identity = Guid.NewGuid();
 
-        Result<CourseEntity> course1 = CourseEntity.Create(identity, "Company Law", "CIL502", 4);
-        Result<CourseEntity> course2 = CourseEntity.Create(identity, "Company Law", "CIL502", 4);
+        Result<CourseEntity, Error> course1 = CourseEntity.Create(identity, "Company Law", "CIL502", 4);
+        Result<CourseEntity, Error> course2 = CourseEntity.Create(identity, "Company Law", "CIL502", 4);
 
-        bool res = course1.Value.Equals(course2.Value);
+        course1.IsSuccess.Should().BeTrue();
+        course2.IsSuccess.Should().BeTrue();
+
+        bool res = course1.Value!.Equals(course2.Value);
 
         res.Should().BeTrue();
     }
@@ -48,7 +51,7 @@ public class CourseTests
     [InlineData(7)]
     public void CreateCourse_WithInvalidUnit_ReturnInvalidCourseUnitError(int courseUnit)
     {
-        Result<CourseEntity> res = CourseEntity.Create(Guid.NewGuid(), "Advanced Maths", "MTH101", courseUnit);
+        Result<CourseEntity, Error> res = CourseEntity.Create(Guid.NewGuid(), "Advanced Maths", "MTH101", courseUnit);
 
         using var _ = new AssertionScope();
 
