@@ -1,7 +1,8 @@
-﻿using MediatR;
-using SMS.API.Abstractions;
+﻿using SMS.API.Abstractions;
 using SMS.API.Extensions;
 using SMS.Application.Courses.Commands.CreateCourse;
+using SMS.Application.Courses.Response;
+using SMS.Domain.Shared;
 
 namespace SMS.API.EndpointDefinitions;
 internal class CourseEndpoint : IEndpointDefinition
@@ -10,6 +11,7 @@ internal class CourseEndpoint : IEndpointDefinition
     {
         const string ENDPOINT = "course";
 
-        app.MediatorPost<CreateCourseCommand, Unit>(ENDPOINT, "/");
+        app.MediatorPost<CreateCourseCommand, Result<CreateCourseResponse, Error>, CreateCourseResponse, Error>(
+            ENDPOINT, "/");
     }
 }
