@@ -1,17 +1,48 @@
 ﻿namespace SMS.Domain.Shared;
-public class Result<TValue> : Result
+public class Result<TValue, TError> : Result where TError : Error
 {
     private readonly TValue? _value;
 
-    protected internal Result(bool isSuccess, Error error) : base(isSuccess, error) { }
+    private readonly TError? _error;
 
-    protected internal Result(TValue? value, bool isSuccess, Error error)
-        : base(isSuccess, error) => 
+    public Result(TValue value) : base()
+    {
         _value = value;
+    }
 
-    public TValue Value => IsSuccess ?
-        _value :
+    public Result(TError error, bool isSuccess) : base(isSuccess, error)
+    {
+        _error = error;
+    }
+
+    public TValue Value => IsSuccess ? _value! : 
         throw new Exception("Value of result can not be accessed");
 
-    public static implicit operator Result<TValue>(TValue value) => Create(value);
+    public static implicit operator Result<TValue, TError>(TValue value) => new(value);
+
+    public static implicit operator Result<TValue, TError>(TError error) => new(error, false);
+
+    //public static Result<TValue, TError> Failure(TError error) => new(error);
+    
+    //public static Result<TValue, TError> Success(TValue value) => new(value);
+
+    //public static implicit operator Result<TValue, TError>(TError error) => Failure(error);
+
+    //protected internal Result(bool isSuccess, Error error) : base(isSuccess, error) { }
+
+    //protected internal Result(TValue? value, bool isSuccess, Error error)
+    //    : base(isSuccess, error) => 
+    //    _value = value;
+
+    //public TValue Value => IsSuccess ?
+    //    _value :
+    //    throw new Exception("Value of result can not be accessed");
+
+    //public static implicit operator Result<TValue, TError>(TValue value) => Create(value);
+
+    public TResult Match<TResult>(
+        Func<TValue, TResult> success,
+        Func<TError, TResult> failure
+        ) =>
+        IsSuccess ? success(_value) : failure(_error);
 }
