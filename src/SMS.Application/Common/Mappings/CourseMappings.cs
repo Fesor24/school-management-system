@@ -8,5 +8,6 @@ internal class CourseMappings : Profile
     public CourseMappings()
     {
         CreateMap<Course, GetCourseResponse>();
+        CreateMap<Course, CreateCourseResponse>();
     }
 }
