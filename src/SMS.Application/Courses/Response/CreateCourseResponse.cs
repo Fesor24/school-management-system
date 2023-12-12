@@ -4,4 +4,5 @@ namespace SMS.Application.Courses.Response;
 public record CreateCourseResponse(
     Guid Id, 
     string Name, 
-    string Code) : CreateResponse(Id);
+    string Code,
+    int Unit) : CreateResponse(Id);
