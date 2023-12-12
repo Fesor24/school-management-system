@@ -24,19 +24,19 @@ public class Department : AggregateRoot
 
     public IReadOnlyCollection<Course> Courses => _courses.AsReadOnly();
 
-    public static Department Create(string name, string code)
+    public static Result<Department, Error> Create(string name, string code)
     {
         var department = new Department(Guid.NewGuid(), name, code);
 
         return department;
     }
 
-    public Result<Course> AddCourse(string courseName, string courseCode, int unit)
+    public Result<Course, Error> AddCourse(string courseName, string courseCode, int unit)
     {
-        Shared.Result<Course> result = Course.Create(Guid.NewGuid(), courseName, courseCode, unit);
+        Shared.Result<Course, Error> result = Course.Create(Guid.NewGuid(), courseName, courseCode, unit);
 
         if (result.IsFailure)
-            return Result.Failure<Course>(result.Error);
+            return result.Error;
 
         _courses.Add(result.Value);
 
@@ -48,7 +48,7 @@ public class Department : AggregateRoot
         Course? course = _courses.FirstOrDefault(x => x.Id == courseId);
 
         if (course is null)
-            return Result.Failure(DomainErrors.Course.CourseNotFound);
+            return DomainErrors.Course.CourseNotFound;
 
         _courses.Remove(course);
 
@@ -57,12 +57,12 @@ public class Department : AggregateRoot
         return Result.Success();
     }
 
-    public Result<Course> UpdateCourse(Guid id, string courseName, string courseCode, int unit)
+    public Result<Course, Error> UpdateCourse(Guid id, string courseName, string courseCode, int unit)
     {
         Course? course = _courses.FirstOrDefault(x => x.Id == id);
 
         if (course is null)
-            return Result.Failure<Course>(DomainErrors.Course.CourseNotFound);
+            return DomainErrors.Course.CourseNotFound;
 
         course.Update(courseName, courseCode, unit);
 
