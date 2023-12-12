@@ -13,4 +13,9 @@ public static class DomainErrors
             "Course.NotFound",
             "Course not found");
     }
+
+    public static class Department
+    {
+        public static readonly Error DepartmentNotFound = new("Department.NotFound", "Department not found");
+    }
 }
