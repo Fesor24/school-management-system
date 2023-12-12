@@ -10,7 +10,7 @@ public class Department : AggregateRoot
 
     public Department()
     {
-        
+
     }
 
     public Department(Guid id, string name, string code) : base(id)
@@ -33,7 +33,7 @@ public class Department : AggregateRoot
 
     public Result<Course, Error> AddCourse(string courseName, string courseCode, int unit)
     {
-        Shared.Result<Course, Error> result = Course.Create(Guid.NewGuid(), courseName, courseCode, unit);
+        Result<Course, Error> result = Course.Create(Guid.NewGuid(), courseName, courseCode, unit);
 
         if (result.IsFailure)
             return result.Error;
