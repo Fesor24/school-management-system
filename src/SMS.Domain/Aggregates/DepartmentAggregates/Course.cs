@@ -25,12 +25,12 @@ public sealed class Course : BaseAuditableEntity
     {
         Course course = new(id, courseName, courseCode, unit);
 
-        if (course.Unit < 1 ||  course.Unit > 6)
+        if (course.Unit < 1 || course.Unit > 6)
             return DomainErrors.Course.InvalidCourseUnit;
 
         course.AddDomainEvent(new CourseCreatedEvent(
-            course.CourseInfo.Name, 
-            course.CourseInfo.Code, 
+            course.CourseInfo.Name,
+            course.CourseInfo.Code,
             course.Unit));
 
         return course;
