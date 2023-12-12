@@ -21,12 +21,12 @@ public sealed class Course : BaseAuditableEntity
 
     public int Unit { get; private set; }
 
-    public static Result<Course> Create(Guid id, string courseName, string courseCode, int unit)
+    public static Result<Course, Error> Create(Guid id, string courseName, string courseCode, int unit)
     {
         Course course = new(id, courseName, courseCode, unit);
 
         if (course.Unit < 1 ||  course.Unit > 6)
-            return Result.Failure<Course>(DomainErrors.Course.InvalidCourseUnit);
+            return DomainErrors.Course.InvalidCourseUnit;
 
         course.AddDomainEvent(new CourseCreatedEvent(
             course.CourseInfo.Name, 
@@ -36,10 +36,10 @@ public sealed class Course : BaseAuditableEntity
         return course;
     }
 
-    public Result<Course> Update(string courseName, string courseCode, int unit)
+    public Result<Course, Error> Update(string courseName, string courseCode, int unit)
     {
         if (unit < 1 || unit > 6)
-            return Result.Failure<Course>(DomainErrors.Course.InvalidCourseUnit);
+            return DomainErrors.Course.InvalidCourseUnit;
 
         Unit = unit;
         CourseInfo = new(courseName, courseCode);
