@@ -25,7 +25,8 @@ internal sealed class GetDepartmentByIdRequestHandler : IRequestHandler<GetDepar
     {
         var department = await _unitOfWork.DepartmentRepository.GetAsync(request.Id);
 
-        if (department is null) return Result.Failure<GetDepartmentResponse, Error>(DomainErrors.Department.DepartmentNotFound);
+        if (department is null) return Result.Failure<GetDepartmentResponse, Error>
+                (DomainErrors.Department.DepartmentNotFound);
 
         return _mapper.Map<GetDepartmentResponse>(department);
     }
