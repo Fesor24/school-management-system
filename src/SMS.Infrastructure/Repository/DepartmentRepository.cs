@@ -5,9 +5,9 @@ using SMS.Infrastructure.Data;
 namespace SMS.Infrastructure.Repository;
 internal class DepartmentRepository : GenericRepository<Department>, IDepartmentRepository
 {
-    private readonly ApplicationDbContext _context;
+    private readonly SchoolDbContext _context;
 
-    public DepartmentRepository(ApplicationDbContext context) : base(context)
+    public DepartmentRepository(SchoolDbContext context) : base(context)
     {
         _context = context;
     }
