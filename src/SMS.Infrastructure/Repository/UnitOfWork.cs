@@ -5,9 +5,9 @@ using SMS.Infrastructure.Data;
 namespace SMS.Infrastructure.Repository;
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ApplicationDbContext _context;
+    private readonly SchoolDbContext _context;
 
-    public UnitOfWork(ApplicationDbContext context)
+    public UnitOfWork(SchoolDbContext context)
     {
         _context = context;
         DepartmentRepository = new DepartmentRepository(context);
