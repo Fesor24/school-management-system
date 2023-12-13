@@ -27,7 +27,7 @@ public static class DependencyInjection
         //        );
         //});
 
-        services.AddDbContext<ApplicationDbContext>((sp, opt) =>
+        services.AddDbContext<SchoolDbContext>((sp, opt) =>
         {
             opt.UseInMemoryDatabase("SMS")
             .AddInterceptors(
