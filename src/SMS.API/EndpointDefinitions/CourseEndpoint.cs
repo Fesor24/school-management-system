@@ -14,6 +14,6 @@ public class CourseEndpoint : IEndpointDefinition
 
         app.MediatorPost<CreateCourseCommand, CreateCourseResponse>(ENDPOINT, "/");
 
-        app.MediatorGet<GetCourseByIdRequest, GetCourseResponse>(ENDPOINT, "/", EndpointRoutes.Names.GETCOURSE);
+        app.MediatorGet<GetCourseByIdRequest, GetCourseResponse>(ENDPOINT, "/{id}", EndpointRoutes.Names.GETCOURSE);
     }
 }
