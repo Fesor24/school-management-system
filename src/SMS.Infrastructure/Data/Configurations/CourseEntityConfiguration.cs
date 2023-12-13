@@ -9,12 +9,12 @@ public class CourseEntityConfiguration : IEntityTypeConfiguration<Course>
     {
         builder.HasKey(x => x.Id);
 
-        builder.ToTable(nameof(Course), "sms");
+        builder.ToTable(nameof(Course), SchoolDbContext.DEFAULT_SCHEMA);
 
-        builder.OwnsOne(x => x.CourseInfo, builder =>
+        builder.OwnsOne(x => x.CourseInfo, courseInfoBuilder =>
         {
-            builder.Property(x => x.Code).HasMaxLength(5).HasColumnName("Code");
-            builder.Property(x => x.Name).HasMaxLength(150).HasColumnName("Name");
+            courseInfoBuilder.Property(x => x.Code).HasMaxLength(20).HasColumnName("Code");
+            courseInfoBuilder.Property(x => x.Name).HasMaxLength(150).HasColumnName("Name");
         });
 
         builder.Ignore(x => x.DomainEvents);
