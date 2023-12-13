@@ -2,7 +2,6 @@
 using MediatR;
 using SMS.Application.Courses.Response;
 using SMS.Domain.Errors;
-using SMS.Domain.Exceptions.Department;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
@@ -27,7 +26,7 @@ internal sealed class CreateCourseCommandHandler : IRequestHandler<CreateCourseC
     {
         var department = await _unitOfWork.DepartmentRepository.GetDepartmentInfo(request.DepartmentId, cancellationToken);
 
-        if (department is null) return DomainErrors.Department.DepartmentNotFound;
+        if (department is null) return DomainErrors.Department.DepartmentNotFound(request.DepartmentId);
 
         var result = department.AddCourse(request.Name, request.Code, request.Unit);
 
