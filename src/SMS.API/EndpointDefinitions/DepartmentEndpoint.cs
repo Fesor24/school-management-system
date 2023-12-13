@@ -1,7 +1,10 @@
-﻿using SMS.API.Abstractions;
+﻿using MediatR;
+using SMS.API.Abstractions;
 using SMS.API.Common.EndpointRouteMapper;
 using SMS.API.Extensions;
 using SMS.Application.Department.Commands.CreateDepartment;
+using SMS.Application.Department.Commands.DeleteDepartment;
+using SMS.Application.Department.Commands.UpdateDepartment;
 using SMS.Application.Department.Queries.GetDepartmentById;
 using SMS.Application.Department.Queries.GetDepartments;
 using SMS.Application.Department.Response;
@@ -20,5 +23,9 @@ public class DepartmentEndpoints : IEndpointDefinition
             EndpointRoutes.Names.GETDEPARTMENT);
 
         app.MediatorPost<CreateDepartmentCommand, CreateDepartmentResponse>(ENDPOINT, "/");
+
+        app.MediatorDelete<DeleteDepartmentCommand, Unit>(ENDPOINT, "/{id}");
+
+        app.MediatorPut<UpdateDepartmentCommand, Unit>(ENDPOINT, "/");
     }
 }
