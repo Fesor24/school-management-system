@@ -5,9 +5,9 @@ using SMS.Infrastructure.Data;
 namespace SMS.Infrastructure.Repository;
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity: Entity, new()
 {
-    private readonly ApplicationDbContext _context;
+    private readonly SchoolDbContext _context;
 
-    protected GenericRepository(ApplicationDbContext context)
+    protected GenericRepository(SchoolDbContext context)
     {
         _context = context;
     }
