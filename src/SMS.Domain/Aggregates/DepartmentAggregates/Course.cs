@@ -21,7 +21,8 @@ public sealed class Course : BaseAuditableEntity
 
     public int Unit { get; private set; }
 
-    public static Result<Course, Error> Create(Guid id, string courseName, string courseCode, int unit)
+    public static Result<Course, Error> Create(Guid id, string courseName, 
+        string courseCode, int unit)
     {
         Course course = new(id, courseName, courseCode, unit);
 
