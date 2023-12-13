@@ -84,7 +84,7 @@ public static class MediatrExtensions
     }
 
     private static async Task<IResult> EndpointForDeleteRequests<TRequest, TResponse>(
-        TRequest request, ISender sender, CancellationToken cancellationToken
+        [AsParameters]TRequest request, ISender sender, CancellationToken cancellationToken
         ) where TRequest : IRequest<Result<TResponse, Error>>
     {
         var response = await sender.Send(request, cancellationToken);
