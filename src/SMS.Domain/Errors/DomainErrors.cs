@@ -9,15 +9,20 @@ public static class DomainErrors
             StatusCodes.BADREQUEST, 
             "Course unit must be greater than 0 and less than 7");
 
-        public static readonly Error CourseNotFound = new(
+        public static Error CourseNotFound(Guid courseId) => new(
             StatusCodes.NOTFOUND,
-            "Course not found");
+            $"Course with Id: '{courseId}' not found");
     }
 
     public static class Department
     {
-        public static readonly Error DepartmentNotFound = new
+        public static Error DepartmentNotFound(Guid departmentId) => new
             (StatusCodes.NOTFOUND, 
-            "Department not found");
+            $"Department with Id: '{departmentId}' not found");
+
+        public static Error DepartmentBadRequest(params string[] data) => new Error(
+            StatusCodes.BADREQUEST,
+            $"Ensure validity of data passed: {data}"
+            );
     }
 }
