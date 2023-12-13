@@ -33,7 +33,8 @@ public class Department : AggregateRoot
 
     public Result<Course, Error> AddCourse(string courseName, string courseCode, int unit)
     {
-        Result<Course, Error> result = Course.Create(Guid.NewGuid(), courseName, courseCode, unit);
+        Result<Course, Error> result = Course.Create(Guid.NewGuid(), courseName, courseCode, 
+            unit);
 
         if (result.IsFailure)
             return result.Error;
@@ -48,7 +49,7 @@ public class Department : AggregateRoot
         Course? course = _courses.FirstOrDefault(x => x.Id == courseId);
 
         if (course is null)
-            return DomainErrors.Course.CourseNotFound;
+            return DomainErrors.Course.CourseNotFound(courseId);
 
         _courses.Remove(course);
 
@@ -62,10 +63,21 @@ public class Department : AggregateRoot
         Course? course = _courses.FirstOrDefault(x => x.Id == id);
 
         if (course is null)
-            return DomainErrors.Course.CourseNotFound;
+            return DomainErrors.Course.CourseNotFound(id);
 
         course.Update(courseName, courseCode, unit);
 
         return course;
+    }
+
+    public Result<Department, Error> UpdateDepartment(string deptName, string deptCode)
+    {
+        if (string.IsNullOrWhiteSpace(deptName) || string.IsNullOrWhiteSpace(deptCode))
+            return DomainErrors.Department.DepartmentBadRequest(deptCode, deptName);
+
+        Name = deptName;
+        Code = deptCode;
+
+        return this;
     }
 }
