@@ -7,17 +7,24 @@ public class DepartmentEntityConfiguration : IEntityTypeConfiguration<Department
 {
     public void Configure(EntityTypeBuilder<Department> builder)
     {
-        builder.ToTable(nameof(Department), "sms");
+        builder.ToTable(nameof(Department), SchoolDbContext.DEFAULT_SCHEMA);
 
         builder.HasKey(x => x.Id);
 
-        builder.HasMany(x => x.Courses)
-            .WithOne();
+        var navigation = builder.Metadata.FindNavigation(nameof(Department.Courses));
 
-        //builder.Property<List<Course>>("_courses")
-        //    .UsePropertyAccessMode(PropertyAccessMode.Field)
-        //    .HasColumnName("Courses");
+        navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
 
         builder.Ignore(x => x.DomainEvents);
+
+        builder.Property(x => x.Name)
+            .HasColumnName("Name")
+            .HasMaxLength(120)
+            .IsRequired();
+
+        builder.Property(x => x.Code)
+            .HasColumnName("Code")
+            .HasMaxLength(30)
+            .IsRequired();
     }
 }
