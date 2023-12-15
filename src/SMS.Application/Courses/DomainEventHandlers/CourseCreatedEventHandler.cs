@@ -14,9 +14,6 @@ internal class CourseCreatedEventHandler : INotificationHandler<CourseCreatedEve
 
     public Task Handle(CourseCreatedEvent notification, CancellationToken cancellationToken)
     {
-        Console.WriteLine($"A course was created. Name: {notification.CourseName}, Unit: {notification.Unit}, " +
-            $"Code: {notification.CourseCode}");
-
         _logger.LogInformation($"A course was created. Name: {notification.CourseName}, Unit: {notification.Unit}, " +
             $"Code: {notification.CourseCode}");
 
