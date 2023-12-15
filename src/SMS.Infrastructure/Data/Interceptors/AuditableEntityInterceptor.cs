@@ -27,11 +27,11 @@ internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
 
         foreach(var entry in entities)
         {
-            entry.Entity.LastModified = DateTimeOffset.Now;
+            entry.Entity.LastModified = DateTime.UtcNow;
 
             if(entry.State == EntityState.Added)
             {
-                entry.Entity.CreatedAt = DateTimeOffset.Now;
+                entry.Entity.CreatedAt = DateTime.UtcNow;
             }
         }
     }
