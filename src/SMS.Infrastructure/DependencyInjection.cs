@@ -16,25 +16,25 @@ public static class DependencyInjection
         services.AddSingleton<AuditableEntityInterceptor>();
 
         services.AddSingleton<PublishDomainEventsInterceptor>();
-        
-        //services.AddDbContext<ApplicationDbContext>((sp, opt) =>
-        //{
-        //    opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), 
-        //        migrations => migrations.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name))
-        //    .AddInterceptors(
-        //        sp.GetRequiredService<AuditableEntityInterceptor>(),
-        //        sp.GetRequiredService<PublishDomainEventsInterceptor>()
-        //        );
-        //});
 
         services.AddDbContext<SchoolDbContext>((sp, opt) =>
         {
-            opt.UseInMemoryDatabase("SMS")
+            opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
+                migrations => migrations.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name))
             .AddInterceptors(
                 sp.GetRequiredService<AuditableEntityInterceptor>(),
                 sp.GetRequiredService<PublishDomainEventsInterceptor>()
                 );
         });
+
+        //services.AddDbContext<SchoolDbContext>((sp, opt) =>
+        //{
+        //    opt.UseInMemoryDatabase("SMS")
+        //    .AddInterceptors(
+        //        sp.GetRequiredService<AuditableEntityInterceptor>(),
+        //        sp.GetRequiredService<PublishDomainEventsInterceptor>()
+        //        );
+        //});
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
