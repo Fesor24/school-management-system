@@ -12,6 +12,11 @@ internal class DepartmentRepository : GenericRepository<Department>, IDepartment
         _context = context;
     }
 
+    public async Task AddCourseAsync(Course coure, CancellationToken cancellationToken = default)
+    {
+        await _context.Courses.AddAsync(coure, cancellationToken);
+    }
+
     public async Task<Course?> GetCourseAsync(Guid courseId, CancellationToken cancellationToken = default) => 
         await _context.Courses
         .FirstOrDefaultAsync(x => x.Id == courseId, cancellationToken);
