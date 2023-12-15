@@ -5,4 +5,4 @@ public record GetDepartmentResponse(
     Guid Id, 
     string Name, 
     string Code,
-    IReadOnlyList<GetCourseResponse> Courses);
+    IReadOnlyCollection<GetCourseResponse> Courses);
