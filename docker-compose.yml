@@ -4,6 +4,8 @@ services:
         container_name: student_mgt_db
         environment:
             POSTGRES_PASSWORD: studentpw
+        ports:
+            - 6422:5432
         volumes:
             - student-data:/var/lib/postgresql/data
     adminer:
