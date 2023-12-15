@@ -24,16 +24,18 @@ internal sealed class CreateCourseCommandHandler : IRequestHandler<CreateCourseC
     public async Task<Result<CreateCourseResponse, Error>> Handle(CreateCourseCommand request, 
         CancellationToken cancellationToken)
     {
-        var department = await _unitOfWork.DepartmentRepository.GetDepartmentInfo(request.DepartmentId, cancellationToken);
+        var department = await _unitOfWork.DepartmentRepository.GetAsync(request.DepartmentId, cancellationToken);
 
         if (department is null) return DomainErrors.Department.DepartmentNotFound(request.DepartmentId);
 
-        var result = department.AddCourse(request.Name, request.Code, request.Unit);
+        var result = department.AddCourse(request.Name, request.Code, request.Unit, department.Id);
 
-        if (result.IsFailure) return Result.Failure<CreateCourseResponse, Error>(result.Error);
+        if (result.IsFailure) return result.Error;
 
-        _unitOfWork.DepartmentRepository.Update(department);
+        await _unitOfWork.DepartmentRepository.AddCourseAsync(result.Value, cancellationToken);
 
-        return Result.Success<CreateCourseResponse, Error>(_mapper.Map<CreateCourseResponse>(result.Value));
+        await _unitOfWork.Complete(cancellationToken);
+
+        return _mapper.Map<CreateCourseResponse>(result.Value);
     }
 }
