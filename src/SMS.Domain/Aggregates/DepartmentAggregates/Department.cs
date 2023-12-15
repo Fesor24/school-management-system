@@ -1,7 +1,9 @@
 ﻿using SMS.Domain.DomainEvents.Course;
 using SMS.Domain.Errors;
+using SMS.Domain.Models.Course;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
+using System.ComponentModel.DataAnnotations;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
 public class Department : AggregateRoot
@@ -24,17 +26,27 @@ public class Department : AggregateRoot
 
     public IReadOnlyCollection<Course> Courses => _courses.AsReadOnly();
 
-    public static Result<Department, Error> Create(string name, string code)
+    public static Result<Department, Error> Create(string name, string code, List<CourseModel> courses)
     {
         var department = new Department(Guid.NewGuid(), name, code);
+
+        if (courses.Any())
+        {
+            foreach(var course in courses)
+            {
+                var result = department.AddCourse(course.Name, course.Code, course.Unit, department.Id);
+
+                if (result.IsFailure) return result.Error;
+            }
+        }
 
         return department;
     }
 
-    public Result<Course, Error> AddCourse(string courseName, string courseCode, int unit)
+    public Result<Course, Error> AddCourse(string courseName, string courseCode, int unit, Guid departmentId)
     {
         Result<Course, Error> result = Course.Create(Guid.NewGuid(), courseName, courseCode, 
-            unit);
+            unit, departmentId);
 
         if (result.IsFailure)
             return result.Error;
