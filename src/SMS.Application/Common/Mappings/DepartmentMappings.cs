@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SMS.Application.Courses.Response;
 using SMS.Application.Department.Response;
 using DepartmentEntity = SMS.Domain.Aggregates.DepartmentAggregates.Department;
 
