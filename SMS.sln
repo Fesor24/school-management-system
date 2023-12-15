@@ -15,13 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS.Application", "src\SMS.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{91579375-49D0-41DA-8B19-2EF05086BC5D}"
 	ProjectSection(SolutionItems) = preProject
+		deploy.cmd = deploy.cmd
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{35EC8E9D-C5B0-46E4-B441-AC9C46B11CDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.Domain.UnitTests", "tests\SMS.Domain.UnitTests\SMS.Domain.UnitTests.csproj", "{13CE5702-0B05-41EA-844C-465DF80252F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS.Domain.UnitTests", "tests\SMS.Domain.UnitTests\SMS.Domain.UnitTests.csproj", "{13CE5702-0B05-41EA-844C-465DF80252F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
