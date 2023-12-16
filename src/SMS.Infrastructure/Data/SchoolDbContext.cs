@@ -11,6 +11,7 @@ public class SchoolDbContext : DbContext
     }
 
     internal const string DEFAULT_SCHEMA = "sms";
+    internal const string USER_SCHEMA = "usr";
 
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Department> Departments => Set<Department>();
