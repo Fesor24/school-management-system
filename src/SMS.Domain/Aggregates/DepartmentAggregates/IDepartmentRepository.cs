@@ -8,4 +8,8 @@ public interface IDepartmentRepository : IGenericRepository<Department>
     Task<Course?> GetCourseAsync(Guid courseId, CancellationToken cancellationToken = default);
 
     Task AddCourseAsync(Course coure, CancellationToken cancellationToken = default);
+
+    Task<Course?> GetCourseByCodeAsync(string code, CancellationToken cancellationToken = default);
+
+    void UpdateCourse(Course coure);
 }
