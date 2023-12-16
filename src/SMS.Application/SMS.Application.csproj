@@ -20,6 +20,12 @@
 
   <ItemGroup>
     <Folder Include="Department\DomainEventHandlers\" />
+    <Folder Include="Student\Commands\" />
+    <Folder Include="Student\EventHandlers\" />
+    <Folder Include="Student\Queries\" />
+    <Folder Include="User\Commands\" />
+    <Folder Include="User\Response\" />
+    <Folder Include="User\Queries\" />
   </ItemGroup>
 
 </Project>
