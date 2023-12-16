@@ -10,10 +10,10 @@ public static class MediatrExtensions
         string route, string routeName = "") 
         where TRequest: IRequest<Result<TResponse, Error>>
     {
-        var group = app.MapGroup(endpointGroup)
-            .WithName(routeName);
+        route = "api/" + endpointGroup + route;
 
-        group.MapGet(route, EndpointForGetRequests<TRequest, TResponse>);
+        app.MapGet(route, EndpointForGetRequests<TRequest, TResponse>)
+            .WithGroupName(endpointGroup);
     }
 
     public static void MediatorPost<TRequest, TResponse>(this WebApplication app, string endpointGroup,
@@ -21,25 +21,28 @@ public static class MediatrExtensions
         where TRequest : IRequest<Result<TResponse, Error>>
         where TResponse : CreateResponse
     {
-        var group = app.MapGroup(endpointGroup);
+        route = "api/" + endpointGroup + route;
 
-        group.MapPost(route, EndpointForCreateRequests<TRequest, TResponse>);
+        app.MapPost(route, EndpointForCreateRequests<TRequest, TResponse>)
+            .WithGroupName(endpointGroup);
     }
 
     public static void MediatorPut<TRequest, TResponse>(this WebApplication app, string endpointGroup, 
         string route) where TRequest : IRequest<Result<TResponse, Error>>
     {
-        var group = app.MapGroup(endpointGroup);
+        route = "api/" + endpointGroup + route;
 
-        group.MapPut(route, EndpointForUpdateRequests<TRequest, TResponse>);
+        app.MapPut(route, EndpointForUpdateRequests<TRequest, TResponse>)
+            .WithGroupName(endpointGroup);
     }
 
     public static void MediatorDelete<TRequest, TResponse>(this WebApplication app, string endpointGroup,
         string route) where TRequest : IRequest<Result<TResponse, Error>>
     {
-        var group = app.MapGroup(endpointGroup);
+        route = "api/" + endpointGroup + route;
 
-        group.MapDelete(route, EndpointForDeleteRequests<TRequest, TResponse>);
+        app.MapDelete(route, EndpointForDeleteRequests<TRequest, TResponse>)
+            .WithGroupName(endpointGroup);
     }
 
     private static async Task<IResult> EndpointForGetRequests<TRequest, TResponse>
