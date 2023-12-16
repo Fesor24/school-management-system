@@ -1,2 +1,4 @@
-﻿namespace SMS.Domain.DomainEvents.User;
-public record UserCreatedEvent(string FirstName, string LastName, string EmailAddress);
+﻿using MediatR;
+
+namespace SMS.Domain.DomainEvents.User;
+public record UserCreatedEvent(string FirstName, string LastName, string EmailAddress) : INotification;
