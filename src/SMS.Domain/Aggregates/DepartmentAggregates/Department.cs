@@ -3,7 +3,6 @@ using SMS.Domain.Errors;
 using SMS.Domain.Models.Course;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
 public class Department : AggregateRoot
