@@ -34,19 +34,23 @@ public class ExceptionMiddleware
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             else if (exceptionType == typeof(BadRequestException))
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            else if (exceptionType == typeof(UnprocessableEntityException))
+                context.Response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
             else
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+            var jsonOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
 
             var error = new ProblemDetails
             {
                 Status = context.Response.StatusCode,
                 Title = ex.Message,
-                Detail = ex.StackTrace
-            };
-
-            var jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                Detail = ex is UnprocessableEntityException unprocessableEntity ?
+                    JsonSerializer.Serialize(unprocessableEntity.Errors) :
+                    ex.StackTrace
             };
 
             var serializedError = JsonSerializer.Serialize(error, jsonOptions);
