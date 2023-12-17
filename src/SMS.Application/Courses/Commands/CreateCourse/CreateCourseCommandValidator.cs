@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 
 namespace SMS.Application.Courses.Commands.CreateCourse;
-internal sealed class CreateCourseCommandValidator : AbstractValidator<CreateCourseCommand>
+public sealed class CreateCourseCommandValidator : AbstractValidator<CreateCourseCommand>
 {
     public CreateCourseCommandValidator()
     {
