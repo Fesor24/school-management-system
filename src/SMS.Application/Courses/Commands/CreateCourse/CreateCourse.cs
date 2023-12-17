@@ -6,7 +6,8 @@ using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Application.Courses.Commands.CreateCourse;
-public record CreateCourseCommand(string Name, string Code, int Unit, Guid DepartmentId) : 
+
+public record CreateCourseCommand(string Name, string Code, int Unit, Guid DepartmentId) :
     IRequest<Result<CreateCourseResponse, Error>>;
 
 internal sealed class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, 
