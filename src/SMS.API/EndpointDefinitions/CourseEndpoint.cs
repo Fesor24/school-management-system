@@ -17,11 +17,12 @@ public class CourseEndpoint : IEndpointDefinition
 
         app.MediatorPost<CreateCourseCommand, CreateCourseResponse>(ENDPOINT, "/");
 
-        app.MediatorGet<GetCourseByIdRequest, GetCourseResponse>(ENDPOINT, "/{id}", EndpointRoutes.Names.GETCOURSE);
+        app.MediatorGet<GetCourseByIdRequest, GetCourseResponse>(ENDPOINT, "/{id}", 
+            EndpointRoutes.Names.Course.GETCOURSE);
 
         app.MediatorPut<UpdateCourseCommand, Unit>(ENDPOINT, "/");
 
         app.MediatorGet<GetDepartmentCoursesRequest, List<GetCourseResponse>>(ENDPOINT, 
-            "/department/{departmentId}");
+            "/department/{departmentId}", EndpointRoutes.Names.Course.GETCOURSES);
     }
 }
