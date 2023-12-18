@@ -1,6 +1,6 @@
 ﻿using MediatR;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Domain.Errors;
-using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Application.Department.Commands.UpdateDepartment;
@@ -12,16 +12,16 @@ public record UpdateDepartmentCommand(
 
 internal sealed class UpdateDepartmentCommandHandler : IRequestHandler<UpdateDepartmentCommand, Result<Unit, Error>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IDepartmentRepository _departmentRepository;
 
-    public UpdateDepartmentCommandHandler(IUnitOfWork unitOfWork)
+    public UpdateDepartmentCommandHandler(IDepartmentRepository departmentRepository)
     {
-        _unitOfWork = unitOfWork;
+        _departmentRepository = departmentRepository;
     }
 
     public async Task<Result<Unit, Error>> Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
     {
-        var department = await _unitOfWork.DepartmentRepository.GetAsync(request.Id);
+        var department = await _departmentRepository.GetAsync(request.Id);
 
         if (department is null) return DomainErrors.Department.DepartmentNotFound(request.Id);
 
@@ -29,9 +29,9 @@ internal sealed class UpdateDepartmentCommandHandler : IRequestHandler<UpdateDep
 
         if (result.IsFailure) return DomainErrors.Department.DepartmentBadRequest();
 
-        _unitOfWork.DepartmentRepository.Update(department);
+        _departmentRepository.Update(department);
 
-        await _unitOfWork.Complete();
+        await _departmentRepository.UnitOfWork.SaveEntitiesAsync();
 
         return Unit.Value;
     }
