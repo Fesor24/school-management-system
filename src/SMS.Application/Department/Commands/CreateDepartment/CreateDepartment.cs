@@ -2,8 +2,8 @@
 using MediatR;
 using SMS.Application.Courses.Request;
 using SMS.Application.Department.Response;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Domain.Models.Course;
-using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 using DepartmentEntity = SMS.Domain.Aggregates.DepartmentAggregates.Department;
 
@@ -14,12 +14,12 @@ public sealed record CreateDepartmentCommand(string Name, string Code, List<Crea
 internal sealed class CreateDepartmentCommandHandler : IRequestHandler<CreateDepartmentCommand, 
     Result<CreateDepartmentResponse, Error>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IDepartmentRepository _departmentRepository;
     private readonly IMapper _mapper;
 
-    public CreateDepartmentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateDepartmentCommandHandler(IDepartmentRepository departmentRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _departmentRepository = departmentRepository;
         _mapper = mapper;
     }
 
@@ -31,9 +31,9 @@ internal sealed class CreateDepartmentCommandHandler : IRequestHandler<CreateDep
 
         if (result.IsFailure) return result.Error;
 
-        await _unitOfWork.DepartmentRepository.AddAsync(result.Value);
+        await _departmentRepository.AddAsync(result.Value);
 
-        await _unitOfWork.Complete();
+        await _departmentRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
         return _mapper.Map<CreateDepartmentResponse>(result.Value);
     }
