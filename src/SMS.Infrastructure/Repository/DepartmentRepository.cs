@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SMS.Domain.Aggregates.DepartmentAggregates;
+using SMS.Domain.Primitives;
 using SMS.Infrastructure.Data;
 
 namespace SMS.Infrastructure.Repository;
@@ -7,9 +8,11 @@ internal class DepartmentRepository : GenericRepository<Department>, IDepartment
 {
     private readonly SchoolDbContext _context;
 
+    public IUnitOfWork UnitOfWork => _context;
+
     public DepartmentRepository(SchoolDbContext context) : base(context)
     {
-        _context = context;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
     public async Task AddCourseAsync(Course coure, CancellationToken cancellationToken = default)
