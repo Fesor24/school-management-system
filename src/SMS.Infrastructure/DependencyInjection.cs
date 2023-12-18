@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SMS.Domain.Primitives;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Infrastructure.Data;
 using SMS.Infrastructure.Data.Interceptors;
 using SMS.Infrastructure.Repository;
@@ -36,7 +36,7 @@ public static class DependencyInjection
         //        );
         //});
 
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
         return services;
     }
