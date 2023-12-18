@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using SMS.Application.Courses.Response;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Domain.Errors;
-using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Application.Courses.Commands.CreateCourse;
@@ -13,19 +13,19 @@ public record CreateCourseCommand(string Name, string Code, int Unit, Guid Depar
 internal sealed class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, 
     Result<CreateCourseResponse, Error>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IDepartmentRepository _departmentRepository;
     private readonly IMapper _mapper;
 
-    public CreateCourseCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateCourseCommandHandler(IDepartmentRepository departmentRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _departmentRepository = departmentRepository;
         _mapper = mapper;
     }
 
     public async Task<Result<CreateCourseResponse, Error>> Handle(CreateCourseCommand request, 
         CancellationToken cancellationToken)
     {
-        var department = await _unitOfWork.DepartmentRepository.GetAsync(request.DepartmentId, cancellationToken);
+        var department = await _departmentRepository.GetAsync(request.DepartmentId, cancellationToken);
 
         if (department is null) return DomainErrors.Department.DepartmentNotFound(request.DepartmentId);
 
@@ -33,9 +33,9 @@ internal sealed class CreateCourseCommandHandler : IRequestHandler<CreateCourseC
 
         if (result.IsFailure) return result.Error;
 
-        await _unitOfWork.DepartmentRepository.AddCourseAsync(result.Value, cancellationToken);
+        await _departmentRepository.AddCourseAsync(result.Value, cancellationToken);
 
-        await _unitOfWork.Complete(cancellationToken);
+        await _departmentRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
         return _mapper.Map<CreateCourseResponse>(result.Value);
     }
