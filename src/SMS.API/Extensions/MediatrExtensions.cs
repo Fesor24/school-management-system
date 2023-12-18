@@ -4,19 +4,20 @@ using SMS.Application.Common.Response;
 using SMS.Domain.Shared;
 
 namespace SMS.API.Extensions;
-public static class MediatrExtensions
+internal static class MediatrExtensions
 {
-    public static void MediatorGet<TRequest, TResponse>(this WebApplication app, string endpointGroup, 
-        string route, string routeName = "") 
+    internal static void MediatorGet<TRequest, TResponse>(this WebApplication app, string endpointGroup, 
+        string route, string routeName) 
         where TRequest: IRequest<Result<TResponse, Error>>
     {
         route = "api/" + endpointGroup + route;
 
         app.MapGet(route, EndpointForGetRequests<TRequest, TResponse>)
-            .WithGroupName(endpointGroup);
+            .WithGroupName(endpointGroup)
+            .WithName(routeName);
     }
 
-    public static void MediatorPost<TRequest, TResponse>(this WebApplication app, string endpointGroup,
+    internal static void MediatorPost<TRequest, TResponse>(this WebApplication app, string endpointGroup,
         string route) 
         where TRequest : IRequest<Result<TResponse, Error>>
         where TResponse : CreateResponse
@@ -27,7 +28,7 @@ public static class MediatrExtensions
             .WithGroupName(endpointGroup);
     }
 
-    public static void MediatorPut<TRequest, TResponse>(this WebApplication app, string endpointGroup, 
+    internal static void MediatorPut<TRequest, TResponse>(this WebApplication app, string endpointGroup, 
         string route) where TRequest : IRequest<Result<TResponse, Error>>
     {
         route = "api/" + endpointGroup + route;
@@ -36,7 +37,7 @@ public static class MediatrExtensions
             .WithGroupName(endpointGroup);
     }
 
-    public static void MediatorDelete<TRequest, TResponse>(this WebApplication app, string endpointGroup,
+    internal static void MediatorDelete<TRequest, TResponse>(this WebApplication app, string endpointGroup,
         string route) where TRequest : IRequest<Result<TResponse, Error>>
     {
         route = "api/" + endpointGroup + route;
@@ -65,6 +66,8 @@ public static class MediatrExtensions
         where TResponse : CreateResponse
     {
         var response = await mediator.Send(request, cancellationToken);
+
+        string routeName = EndpointRoutes.GetRouteName(typeof(TResponse));
 
         return response.Match(
             suc => Results.CreatedAtRoute(EndpointRoutes.GetRouteName(typeof(TResponse)), 
