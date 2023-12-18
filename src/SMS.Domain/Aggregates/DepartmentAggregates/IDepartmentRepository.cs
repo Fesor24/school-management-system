@@ -11,5 +11,7 @@ public interface IDepartmentRepository : IGenericRepository<Department>
 
     Task<Course?> GetCourseByCodeAsync(string code, CancellationToken cancellationToken = default);
 
+    IUnitOfWork UnitOfWork { get; }
+
     void UpdateCourse(Course coure);
 }
