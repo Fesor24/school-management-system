@@ -3,25 +3,34 @@ using SMS.Application.Department.Response;
 
 namespace SMS.API.Common.EndpointRouteMapper;
 
-public static class EndpointRoutes
+internal static class EndpointRoutes
 {
     private static Dictionary<Type, string> _mapRoute = new()
     {
-        {typeof(CreateDepartmentResponse), Names.GETDEPARTMENT },
-        {typeof(CreateCourseResponse), Names.GETCOURSE }
+        {typeof(CreateDepartmentResponse), Names.Department.GETDEPARTMENT },
+        {typeof(CreateCourseResponse), Names.Course.GETCOURSE }
     };
 
-    public static string GetRouteName(Type type)
+    internal static string GetRouteName(Type type)
     {
         if(_mapRoute.ContainsKey(type)) return _mapRoute[type];
 
         return string.Empty;
     }
 
-    public static class Names
+    internal static class Names
     {
-        public const string GETDEPARTMENT = "GetDepartment";
+        internal static class Course
+        {
+            internal const string GETCOURSE = "GetCourse";
+            internal const string GETCOURSES = "GetCourses";
+        }
 
-        public const string GETCOURSE = "GetCourse";
+        internal static class Department
+        {
+            internal const string GETDEPARTMENT = "GetDepartment";
+            internal const string GETDEPARTMENTS = "GetDepartments";
+        }
+        
     }
 }
