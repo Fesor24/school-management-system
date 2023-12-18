@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using SMS.Application.Courses.Response;
+using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Domain.Exceptions.Department;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
@@ -11,19 +12,19 @@ public record GetDepartmentCoursesRequest(Guid DepartmentId) : IRequest<Result<L
 internal sealed class GetDepartmentCoursesRequestHandler : IRequestHandler<GetDepartmentCoursesRequest,
     Result<List<GetCourseResponse>, Error>>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IDepartmentRepository _departmentRepository;
     private readonly IMapper _mapper;
 
-    public GetDepartmentCoursesRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetDepartmentCoursesRequestHandler(IDepartmentRepository departmentRepository, IMapper mapper)
     {
-        _unitOfWork = unitOfWork;
+        _departmentRepository = departmentRepository;
         _mapper = mapper;
     }
 
     public async Task<Result<List<GetCourseResponse>, Error>> Handle(GetDepartmentCoursesRequest request, 
         CancellationToken cancellationToken)
     {
-        var department = await _unitOfWork.DepartmentRepository.GetDepartmentInfo(request.DepartmentId) ??
+        var department = await _departmentRepository.GetDepartmentInfo(request.DepartmentId) ??
             throw new DepartmentNotFoundException(request.DepartmentId);
 
         return _mapper.Map<List<GetCourseResponse>>(department.Courses);
