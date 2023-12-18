@@ -17,10 +17,11 @@ public class DepartmentEndpoints : IEndpointDefinition
     {
         const string ENDPOINT = "Department";
 
-        app.MediatorGet<GetDepartmentsRequest, IReadOnlyList<GetDepartmentResponse>>(ENDPOINT, "/");
+        app.MediatorGet<GetDepartmentsRequest, IReadOnlyList<GetDepartmentResponse>>(ENDPOINT, "/", 
+            EndpointRoutes.Names.Department.GETDEPARTMENTS);
 
         app.MediatorGet<GetDepartmentByIdRequest, GetDepartmentResponse>(ENDPOINT, "/{id}", 
-            EndpointRoutes.Names.GETDEPARTMENT);
+            EndpointRoutes.Names.Department.GETDEPARTMENT);
 
         app.MediatorPost<CreateDepartmentCommand, CreateDepartmentResponse>(ENDPOINT, "/");
 
