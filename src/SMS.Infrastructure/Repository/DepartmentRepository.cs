@@ -2,9 +2,10 @@
 using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Domain.Primitives;
 using SMS.Infrastructure.Data;
+using SMS.Shared.DependencyRegistrationTypes;
 
 namespace SMS.Infrastructure.Repository;
-internal class DepartmentRepository : GenericRepository<Department>, IDepartmentRepository
+internal class DepartmentRepository : GenericRepository<Department>, IDepartmentRepository, IScopedRegistration
 {
     private readonly SchoolDbContext _context;
 
