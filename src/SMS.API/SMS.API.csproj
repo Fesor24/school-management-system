@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SMS.Application\SMS.Application.csproj" />
     <ProjectReference Include="..\SMS.Infrastructure\SMS.Infrastructure.csproj" />
+    <ProjectReference Include="..\SMS.Shared\SMS.Shared.csproj" />
   </ItemGroup>
 
 </Project>
