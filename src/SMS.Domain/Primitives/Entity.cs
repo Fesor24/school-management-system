@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SMS.Domain.Primitives;
-public abstract class Entity : IEquatable<Entity>
+public abstract class Entity : IEquatable<Entity>, IEntity
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 
@@ -15,7 +15,7 @@ public abstract class Entity : IEquatable<Entity>
         Id = id;
     }
 
-    public Guid Id { get; private init; }
+    public virtual Guid Id { get; private init; }
 
     [NotMapped]
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
