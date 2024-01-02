@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SMS.Domain.Aggregates.StudentAggregates;
 
 namespace SMS.Infrastructure.Data.Configurations;
-public class StudentEntityConfiguration : IEntityTypeConfiguration<Student>
+internal sealed class StudentEntityConfiguration : IEntityTypeConfiguration<Student>
 {
     public void Configure(EntityTypeBuilder<Student> builder)
     {
