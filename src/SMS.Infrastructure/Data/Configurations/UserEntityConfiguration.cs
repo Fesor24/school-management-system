@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SMS.Domain.Aggregates.UserAggregates;
 
 namespace SMS.Infrastructure.Data.Configurations;
-public class UserEntityConfiguration : IEntityTypeConfiguration<User>
+internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
@@ -17,8 +17,6 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
             addressBuilder.Property(x => x.State).IsRequired();
             addressBuilder.Property(x => x.Street).IsRequired();
         });
-
-        builder.Ignore(x => x.DomainEvents);
 
         builder.Property(x => x.Gender)
             .HasConversion(g => g.ToString(),
