@@ -1,5 +1,5 @@
 ﻿namespace SMS.Domain.Primitives;
-public interface IGenericRepository<TEntity> where TEntity : Entity, new()
+public interface IGenericRepository<TEntity> where TEntity : IEntity, new()
 {
     Task<List<TEntity>> GetAll(CancellationToken cancellationToken = default);
 
