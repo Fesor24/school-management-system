@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SMS.Domain.Aggregates.DepartmentAggregates;
 
 namespace SMS.Infrastructure.Data.Configurations;
-public class DepartmentEntityConfiguration : IEntityTypeConfiguration<Department>
+internal sealed class DepartmentEntityConfiguration : IEntityTypeConfiguration<Department>
 {
     public void Configure(EntityTypeBuilder<Department> builder)
     {
