@@ -1,10 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SMS.Domain.Aggregates.DepartmentAggregates;
+using SMS.Domain.Aggregates.UserAggregates;
+using SMS.Domain.Aggregates.UserRoleAggregates;
+using SMS.Domain.Aggregates.UserRoleClalimAggregates;
 using SMS.Domain.Primitives;
 using System.Reflection;
 
 namespace SMS.Infrastructure.Data;
-public class SchoolDbContext : DbContext, IUnitOfWork
+public class SchoolDbContext : IdentityDbContext<User, UserRole, Guid, IdentityUserClaim<Guid>, 
+    IdentityUserRole<Guid>, IdentityUserLogin<Guid>, UserRoleClaim, IdentityUserToken<Guid>>, 
+    IUnitOfWork
 {
     public SchoolDbContext(DbContextOptions<SchoolDbContext> options) : base(options)
     {
@@ -25,8 +32,8 @@ public class SchoolDbContext : DbContext, IUnitOfWork
         base.OnModelCreating(modelBuilder);
     }
 
-    public async Task<int> SaveEntitiesAsync(CancellationToken cancelleationToken = default)
+    public async Task<int> SaveEntitiesAsync(CancellationToken cancellationToken = default)
     {
-        return await base.SaveChangesAsync();
+        return await base.SaveChangesAsync(cancellationToken);
     }
 }
