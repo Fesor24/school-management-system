@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using SMS.Domain.Primitives;
 
 namespace SMS.Infrastructure.Data.Interceptors;
-internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
+internal sealed class AuditableEntityInterceptor: SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, 
         InterceptionResult<int> result)
@@ -19,11 +19,11 @@ internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    public static void UpdateEntities(DbContext? context)
+    internal static void UpdateEntities(DbContext? context)
     {
         if (context is null) return;
 
-        var entities = context.ChangeTracker.Entries<BaseAuditableEntity>().ToList();
+        var entities = context.ChangeTracker.Entries<BaseAuditableEntity<Guid>>().ToList();
 
         foreach(var entry in entities)
         {
