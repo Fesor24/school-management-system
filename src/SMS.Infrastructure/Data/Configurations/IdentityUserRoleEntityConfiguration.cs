@@ -8,6 +8,5 @@ internal sealed class IdentityUserRoleEntityConfiguration : IEntityTypeConfigura
     public void Configure(EntityTypeBuilder<IdentityUserRole<Guid>> builder)
     {
         builder.ToTable("UserRole", SchoolDbContext.USER_SCHEMA);
-
     }
 }
