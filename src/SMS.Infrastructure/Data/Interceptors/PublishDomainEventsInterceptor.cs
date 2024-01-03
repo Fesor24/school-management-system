@@ -28,12 +28,12 @@ internal sealed class PublishDomainEventsInterceptor : SaveChangesInterceptor
         return result;
     }
 
-    public async Task PublishDomainEvents(DbContext? context)
+    internal async Task PublishDomainEvents(DbContext? context)
     {
         if (context is null) return;
 
         var entities = context.ChangeTracker
-            .Entries<Entity>()
+            .Entries<Entity<Guid>>()
             .Where(x => x.Entity.DomainEvents.Any())
             .Select(x => x.Entity);
 
