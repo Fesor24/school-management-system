@@ -3,7 +3,7 @@ using SMS.Domain.Aggregates.StudentAggregates;
 using SMS.Domain.Primitives;
 
 namespace SMS.Domain.Aggregates.StudentCoursesAggregates;
-public sealed class StudentCourse : AggregateRoot
+public sealed class StudentCourse : AggregateRoot<Guid>
 {
     public StudentCourse()
     {
