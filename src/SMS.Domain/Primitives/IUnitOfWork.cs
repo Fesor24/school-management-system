@@ -1,5 +1,5 @@
 ﻿namespace SMS.Domain.Primitives;
-public interface IUnitOfWork : IDisposable
+public interface IUnitOfWork
 {
     Task<int> SaveEntitiesAsync(CancellationToken cancelleationToken = default);
 }
