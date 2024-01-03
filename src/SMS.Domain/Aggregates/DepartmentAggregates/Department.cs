@@ -5,7 +5,7 @@ using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
-public class Department : AggregateRoot
+public class Department : AggregateRoot<Guid>
 {
     private readonly List<Course> _courses = new();
 
