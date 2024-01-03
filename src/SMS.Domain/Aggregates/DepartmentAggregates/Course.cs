@@ -1,12 +1,14 @@
-﻿using SMS.Domain.DomainEvents.Course;
+﻿using SMS.Domain.Aggregates.StudentCoursesAggregates;
+using SMS.Domain.DomainEvents.Course;
 using SMS.Domain.Errors;
 using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace SMS.Domain.Aggregates.DepartmentAggregates;
-public sealed class Course : BaseAuditableEntity
+public sealed class Course : BaseAuditableEntity<Guid>
 {
+    private readonly List<StudentCourse> _studentCourses = new();
+
     protected Course()
     {
 
@@ -24,6 +26,8 @@ public sealed class Course : BaseAuditableEntity
     public int Unit { get; private set; }
 
     public Guid DepartmentId { get; private set; }
+
+    public IReadOnlyCollection<StudentCourse> StudentCourses => _studentCourses.AsReadOnly();
 
     public static Result<Course, Error> Create(Guid id, string courseName, 
         string courseCode, int unit, Guid departmentId)
