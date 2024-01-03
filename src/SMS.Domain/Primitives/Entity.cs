@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SMS.Domain.Primitives;
-public abstract class Entity : IEquatable<Entity>, IEntity
+public abstract class Entity<TKey> : IEquatable<Entity<TKey>> where TKey : IEquatable<TKey>
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 
@@ -10,12 +10,12 @@ public abstract class Entity : IEquatable<Entity>, IEntity
 
     }
 
-    protected Entity(Guid id)
+    protected Entity(TKey id)
     {
         Id = id;
     }
 
-    public virtual Guid Id { get; private init; }
+    public virtual TKey Id { get; private init; }
 
     [NotMapped]
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
@@ -29,12 +29,12 @@ public abstract class Entity : IEquatable<Entity>, IEntity
     public void ClearDomainEvents() =>
         _domainEvents.Clear();
 
-    public static bool operator ==(Entity? first, Entity? second)
+    public static bool operator ==(Entity<TKey>? first, Entity<TKey>? second)
     {
         return first is not null && second is not null && first.Equals(second);
     }
 
-    public static bool operator !=(Entity? first, Entity? second)
+    public static bool operator !=(Entity<TKey>? first, Entity<TKey>? second)
     {
         return !(first == second);
     }
@@ -45,20 +45,20 @@ public abstract class Entity : IEquatable<Entity>, IEntity
 
         if (obj.GetType() != GetType()) return false;
 
-        if (obj is not Entity entity) return false;
+        if (obj is not Entity<TKey> entity) return false;
 
-        if (entity.Id == default || Id == default) return false;
-
-        return entity.Id == Id;
+        return Equals(entity);
     }
 
-    public bool Equals(Entity? other)
+    public bool Equals(Entity<TKey>? other)
     {
         if (other is null) return false;
 
         if (other.GetType() != GetType()) return false;
 
-        return other.Id == Id;
+        //if (other.Id == default || Id == default) return false;
+
+        return other.Id.Equals(Id);
     }
 
     public override int GetHashCode()
