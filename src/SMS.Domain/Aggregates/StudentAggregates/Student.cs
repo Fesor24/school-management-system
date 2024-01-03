@@ -2,7 +2,7 @@
 using SMS.Domain.Primitives;
 
 namespace SMS.Domain.Aggregates.StudentAggregates;
-public sealed class Student : AggregateRoot
+public sealed class Student : AggregateRoot<Guid>
 {
     private readonly List<StudentCourse> _courses = new();
 
