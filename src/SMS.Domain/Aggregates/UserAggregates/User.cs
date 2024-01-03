@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SMS.Domain.Primitives;
 using SMS.Domain.Shared;
 
 namespace SMS.Domain.Aggregates.UserAggregates;
-public sealed class User : IdentityUser<Guid>, IEntity
+public sealed class User : IdentityUser<Guid>
 {
     public User() { }
 
