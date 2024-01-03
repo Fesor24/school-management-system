@@ -1,9 +1,9 @@
 ﻿namespace SMS.Domain.Primitives;
-public class BaseAuditableEntity : Entity
+public class BaseAuditableEntity<TKey> : Entity<TKey> where TKey : IEquatable<TKey>
 {
     protected BaseAuditableEntity() { }
 
-    protected BaseAuditableEntity(Guid id) : base(id)
+    protected BaseAuditableEntity(TKey id) : base(id)
     {
 
     }
