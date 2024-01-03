@@ -18,5 +18,9 @@ internal sealed class CourseEntityConfiguration : IEntityTypeConfiguration<Cours
         });
 
         builder.Ignore(x => x.DomainEvents);
+
+        var navigation = builder.Metadata.FindNavigation(nameof(Course.StudentCourses));
+
+        navigation!.SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }
