@@ -15,6 +15,6 @@ internal sealed class StudentEntityConfiguration : IEntityTypeConfiguration<Stud
 
         var navigation = builder.Metadata.FindNavigation(nameof(Student.Courses));
 
-        navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+        navigation!.SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }
