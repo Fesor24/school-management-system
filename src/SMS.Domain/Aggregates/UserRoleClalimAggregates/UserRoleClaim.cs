@@ -8,10 +8,14 @@ public sealed class UserRoleClaim : IdentityRoleClaim<Guid>
         
     }
 
-    public UserRoleClaim(string description, string group)
+    public UserRoleClaim(Guid roleId, string claimType, string claimValue, 
+        string description, string group)
     {
         Description = description;
         Group = group;
+        RoleId = roleId;
+        ClaimType = claimType;
+        ClaimValue = claimValue;
     }
 
     public string Description { get; private set; }
