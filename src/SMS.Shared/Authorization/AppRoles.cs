@@ -4,12 +4,12 @@ namespace SMS.Shared.Authorization;
 public static class AppRoles
 {
     public const string Admin = nameof(Admin);
-    public const string User = nameof(User);
+    public const string Basic = nameof(Basic);
 
     public static IReadOnlyList<string> DefaultRoles { get; } = new ReadOnlyCollection<string>(new[]
     {
         Admin,
-        User,
+        Basic,
     });
 
     public static bool IsDefault(string roleName) => 
