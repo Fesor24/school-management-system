@@ -8,7 +8,7 @@ public sealed class Role : IdentityRole<Guid>
         
     }
 
-    public Role(string description, string name) : base(name)
+    public Role(string name, string description) : base(name)
     {
         Description = description;
     }
