@@ -3,6 +3,7 @@ using SMS.API.Extensions;
 using SMS.API.Middleware;
 using SMS.Application;
 using SMS.Infrastructure;
+using SMS.Infrastructure.Data.DataSeed;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
