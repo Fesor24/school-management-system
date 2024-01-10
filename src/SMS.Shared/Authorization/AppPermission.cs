@@ -3,7 +3,7 @@
 namespace SMS.Shared.Authorization;
 public record AppPermission(string Feature, string Action, string Group, string Description, bool IsBasic = false)
 {
-    public string Name { get; set; } = string.Empty;
+    public string Name => Builder(Feature, Action);
 
     public static string Builder(string feature, string action) =>
            $"Permision.{feature}.{action}";
