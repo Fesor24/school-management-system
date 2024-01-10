@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SMS.Domain.Aggregates.DepartmentAggregates;
 using SMS.Infrastructure.Data;
+using SMS.Infrastructure.Data.DataSeed;
 using SMS.Infrastructure.Data.Interceptors;
 using SMS.Infrastructure.Repository;
 using System.Reflection;
@@ -25,7 +26,7 @@ public static class DependencyInjection
                 sp.GetRequiredService<AuditableEntityInterceptor>(),
                 sp.GetRequiredService<PublishDomainEventsInterceptor>()
                 );
-        });
+        }).AddTransient<SchoolDbContextSeeder>();
 
         //services.AddDbContext<SchoolDbContext>((sp, opt) =>
         //{
