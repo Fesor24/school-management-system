@@ -83,9 +83,9 @@ public class SchoolDbContextSeeder
 
         foreach(var permission in permissions)
         {
-            if(!currentClaims.Any(x => x.Type == AppClaims.Permission && x.Value == permission.Name))
+            if(!currentClaims.Any(x => x.Type == AppClaim.Permission && x.Value == permission.Name))
             {
-                var userRoleClaim = new UserRoleClaim(role.Id, AppClaims.Permission, permission.Name, permission.Description,
+                var userRoleClaim = new UserRoleClaim(role.Id, AppClaim.Permission, permission.Name, permission.Description,
                     permission.Group);
 
                 await _context.RoleClaims.AddAsync(userRoleClaim);
