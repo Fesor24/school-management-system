@@ -13,20 +13,20 @@ public class AppPermissions
 {
     private static readonly AppPermission[] _all = new AppPermission[]
     {
-        new(AppFeatures.Student, AppActions.Create, AppRoleGroup.Management, "Create Student"),
-        new(AppFeatures.Student, AppActions.Update, AppRoleGroup.Management, "Update Student"),
-        new(AppFeatures.Student, AppActions.Delete, AppRoleGroup.Management, "Delete Student"),
-        new(AppFeatures.Student, AppActions.Read, AppRoleGroup.Management, "Read Student", true),
+        new(AppFeature.Student, AppAction.Create, AppRoleGroup.Management, "Create Student"),
+        new(AppFeature.Student, AppAction.Update, AppRoleGroup.Management, "Update Student"),
+        new(AppFeature.Student, AppAction.Delete, AppRoleGroup.Management, "Delete Student"),
+        new(AppFeature.Student, AppAction.Read, AppRoleGroup.Management, "Read Student", true),
 
-        new(AppFeatures.User, AppActions.Create, AppRoleGroup.SystemAccess, "Create User"),
-        new(AppFeatures.User, AppActions.Read, AppRoleGroup.SystemAccess, "Read User"),
-        new(AppFeatures.User, AppActions.Update, AppRoleGroup.SystemAccess, "Update User"),
-        new(AppFeatures.User, AppActions.Delete, AppRoleGroup.SystemAccess, "Delete User"),
+        new(AppFeature.User, AppAction.Create, AppRoleGroup.SystemAccess, "Create User"),
+        new(AppFeature.User, AppAction.Read, AppRoleGroup.SystemAccess, "Read User"),
+        new(AppFeature.User, AppAction.Update, AppRoleGroup.SystemAccess, "Update User"),
+        new(AppFeature.User, AppAction.Delete, AppRoleGroup.SystemAccess, "Delete User"),
 
-        new(AppFeatures.Role, AppActions.Create, AppRoleGroup.SystemAccess, "Create Role"),
-        new(AppFeatures.Role, AppActions.Read, AppRoleGroup.SystemAccess, "Read Role"),
-        new(AppFeatures.Role, AppActions.Update, AppRoleGroup.SystemAccess, "Update Role"),
-        new(AppFeatures.Role, AppActions.Delete, AppRoleGroup.SystemAccess, "Delete Role"),
+        new(AppFeature.Role, AppAction.Create, AppRoleGroup.SystemAccess, "Create Role"),
+        new(AppFeature.Role, AppAction.Read, AppRoleGroup.SystemAccess, "Read Role"),
+        new(AppFeature.Role, AppAction.Update, AppRoleGroup.SystemAccess, "Update Role"),
+        new(AppFeature.Role, AppAction.Delete, AppRoleGroup.SystemAccess, "Delete Role"),
 
     };
 
