@@ -3,7 +3,6 @@ using SMS.API.Extensions;
 using SMS.API.Middleware;
 using SMS.Application;
 using SMS.Infrastructure;
-using SMS.Infrastructure.Data.DataSeed;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -12,13 +11,16 @@ Log.Logger = new LoggerConfiguration()
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructureServices(builder.Configuration)
-    .AddApplicationServices();
+    .AddApplicationServices()
+    .AddApiServices();
 
 builder.Services.AddSerilog();
 
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
+
+app.SeedDatabase();
 
 app.UseSerilogRequestLogging();
 
