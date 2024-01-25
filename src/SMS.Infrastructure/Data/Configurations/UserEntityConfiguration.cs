@@ -21,5 +21,8 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Gender)
             .HasConversion(g => g.ToString(),
             str => (Gender)Enum.Parse(typeof(Gender), str));
+
+        builder.Property(x => x.RefreshToken)
+            .IsRequired(false);
     }
 }
