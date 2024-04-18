@@ -103,11 +103,15 @@ internal static class MediatrExtensions
 
     private static IResult HandleError(Error error)
     {
-        return error.Code switch
-        {
-            Domain.Errors.StatusCodes.NOTFOUND => Results.NotFound(error),
-            Domain.Errors.StatusCodes.BADREQUEST => Results.BadRequest(error),
-            _ => Results.BadRequest()
-        };
+        Type errorType = error.GetType();
+
+        if (errorType == typeof(NotFoundError))
+            return Results.NotFound(error);
+
+        else if (errorType == typeof(ValidationError) || errorType == typeof(BadRequestError))
+            return Results.BadRequest(error);
+
+        else
+            return Results.BadRequest(error);
     }
 }
