@@ -23,7 +23,7 @@ internal sealed class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseC
 
         var courseByCode = await _departmentRepository.GetCourseByCodeAsync(request.Code, cancellationToken);
 
-        if (courseByCode is not null) return new Error(StatusCodes.BADREQUEST, 
+        if (courseByCode is not null) return Error.BadRequest("COURSE.EXIST", 
             $"Course with code: {request.Code} exist");
 
         var result = course.Update(request.Name, request.Code, request.Unit);
