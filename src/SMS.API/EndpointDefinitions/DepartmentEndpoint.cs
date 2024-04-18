@@ -15,7 +15,7 @@ public class DepartmentEndpoints : IEndpointDefinition
 {
     public void RegisterEndpoints(WebApplication app)
     {
-        const string ENDPOINT = "Department";
+        const string ENDPOINT = "department";
 
         app.MediatorGet<GetDepartmentsRequest, IReadOnlyList<GetDepartmentResponse>>(ENDPOINT, "/", 
             EndpointRoutes.Names.Department.GETDEPARTMENTS);
