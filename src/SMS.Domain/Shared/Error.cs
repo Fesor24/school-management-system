@@ -14,6 +14,10 @@ public class Error : IEquatable<Error>
 
     public string Message { get; set; }
 
+    public static NotFoundError NotFound(string code, string message) => new(code, message);
+    public static ValidationError Validation(string code, string message) => new(code, message);
+    public static BadRequestError BadRequest(string code, string message) => new(code, message);
+
     public static implicit operator string(Error error) => error.Code;
     public bool Equals(Error? other)
     {
@@ -43,4 +47,28 @@ public class Error : IEquatable<Error>
     }
 
     public static implicit operator Result(Error error) => Result.Failure(error);
+}
+
+public class NotFoundError : Error
+{
+    public NotFoundError(string code, string message) : base(code, message)
+    {
+        
+    }
+}
+
+public class ValidationError : Error
+{
+    public ValidationError(string code, string message) : base(code, message)
+    {
+        
+    }
+}
+
+public class BadRequestError : Error
+{
+    public BadRequestError(string code, string message) : base(code, message)
+    {
+        
+    }
 }
