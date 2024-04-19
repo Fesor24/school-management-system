@@ -1,23 +1,34 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
+using SMS.API.IntegrationTests.Fixtures;
+using SMS.Application.Department.Commands.CreateDepartment;
 using SMS.Application.Department.Response;
 using System.Net.Http.Json;
 
 namespace SMS.API.IntegrationTests.EndpointTests.DepartmentEndpointTests;
-public class GetDepartmentEndpointTests : IClassFixture<WebApplicationFactory<IApiMarker>>
+
+[Collection("Api Collection")]
+public class GetDepartmentEndpointTests
 {
     private readonly HttpClient _httpClient;
 
-    public GetDepartmentEndpointTests(WebApplicationFactory<IApiMarker> appFactory)
+    public GetDepartmentEndpointTests(CustomApplicationFactory appFactory)
     {
         _httpClient = appFactory.CreateClient();
     }
 
-    [Theory]
-    [InlineData("f002392c-70e1-42dd-a3e9-467ee9c42284")]
-    public async Task Get_ReturnDepartment_WhenDepartmentExist(Guid departmentId)
+    [Fact]
+    public async Task Get_ReturnDepartment_WhenDepartmentExist()
     {
-        var response = await _httpClient.GetAsync($"/api/department/{departmentId}");
+        CreateDepartmentCommand dept =
+            new("Law", "LW", new List<Application.Courses.Request.CreateCourseRequest>());
+
+        var createResponse = await _httpClient.PostAsJsonAsync("api/department", dept);
+
+        createResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);
+
+        var departmentCreated = await createResponse.Content.ReadFromJsonAsync<CreateDepartmentResponse>();
+
+        var response = await _httpClient.GetAsync($"/api/department/{departmentCreated.Id}");
 
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
@@ -25,7 +36,7 @@ public class GetDepartmentEndpointTests : IClassFixture<WebApplicationFactory<IA
 
         var department = await response.Content.ReadFromJsonAsync<GetDepartmentResponse>();
 
-        department!.Id.Should().Be(departmentId);
+        department!.Id.Should().Be(departmentCreated.Id);
     }
 
     [Fact]
@@ -36,5 +47,22 @@ public class GetDepartmentEndpointTests : IClassFixture<WebApplicationFactory<IA
         var response = await _httpClient.GetAsync($"/api/department/{departmentId}");
 
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task Get_ReturnsListOfDepartment_WhenDepartmentsExists()
+    {
+        var response = await _httpClient.GetFromJsonAsync<List<GetDepartmentResponse>>("api/department");
+
+        response.Should().NotBeNullOrEmpty();
+
+        response.Capacity.Should().BeGreaterThan(1);
+
+        response.ForEach(dept =>
+        {
+            dept.Code.Should().NotBeNullOrWhiteSpace();
+
+            dept.Name.Should().NotBeNullOrWhiteSpace();
+        });
     }
 }
