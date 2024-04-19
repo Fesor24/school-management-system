@@ -27,6 +27,12 @@ public class Department : AggregateRoot<Guid>
 
     public static Result<Department, Error> Create(string name, string code, List<CourseModel> courses)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            return Error.Validation("DEPARTMENT.BADDATA", "Name can not be null or empty");
+
+        if (string.IsNullOrWhiteSpace(code))
+            return Error.Validation("DEPARTMENT.BADDATA", "Code can not be null or empty");
+
         var department = new Department(Guid.NewGuid(), name, code);
 
         if (courses.Any())
