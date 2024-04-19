@@ -22,5 +22,7 @@ public static class ServiceCollectionExtensions
         var context = scope.ServiceProvider.GetRequiredService<SchoolDbContext>();
 
         context.Database.Migrate();
+
+        Database.Initialize(context);
     }
 }
