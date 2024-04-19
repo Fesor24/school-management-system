@@ -1,11 +1,14 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using SMS.API.IntegrationTests.Fixtures;
 using SMS.Application.Department.Commands.CreateDepartment;
 using SMS.Application.Department.Response;
 using System.Net.Http.Json;
 
 namespace SMS.API.IntegrationTests.EndpointTests.DepartmentEndpointTests;
-public class CreateDepartmentEndpointTests : IClassFixture<CustomApplicationFactory>
+
+[Collection("Api Collection")]
+public class CreateDepartmentEndpointTests
 {
     private readonly HttpClient _httpClient;
 
@@ -29,5 +32,22 @@ public class CreateDepartmentEndpointTests : IClassFixture<CustomApplicationFact
         response.Headers.Location.Should().Be($"http://localhost/api/department/{deptCreated.Id}");
 
         deptCreated!.Code.Should().Be(department.Code);
+    }
+
+    [Fact]
+    public async Task Create_ReturnsValidationError_WhenDataIsNotValid()
+    {
+        CreateDepartmentCommand department =
+            new("", "SSC", new List<Application.Courses.Request.CreateCourseRequest>());
+
+        var response = await _httpClient.PostAsJsonAsync("api/department", department);
+
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.UnprocessableEntity);
+
+        var error = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+
+        error.Title.Should().Be("One or more validation error(s)");
+
+        error.Detail.Should().Be("{\"Name\":[\"Name can not be empty\"]}");
     }
 }
